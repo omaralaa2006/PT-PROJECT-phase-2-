@@ -8,7 +8,7 @@
 GameState::GameState(Grid* pGrid)
 {
 	// Create all Player objects starting at the board's designated start cell.
-	// The Grid provides the start cell position; the GameState owns the Player objects.
+	// The Grid provides the start cell position; the GameState owns the Player objects.// tesst
 	Cell* startCell = pGrid->GetStartCell();
 	Output* pOut = pGrid->GetOutput();
 
