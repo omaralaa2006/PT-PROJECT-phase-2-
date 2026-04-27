@@ -1,7 +1,9 @@
 #include "ApplicationManager.h"
-
 #include "Grid.h"
-
+#include "RebootRepairAction.h"
+#include "SelectCommandAction.h"
+#include "ExecuteCommandsAction.h"
+#include "NewGameAction.h"
 #include "AddBeltAction.h"
 #include "AddRotatingGearAction.h"
 #include "AddFlagAction.h"
@@ -98,6 +100,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	///TODO: Add a case for EACH remaining Play Mode action type
+	case SELECT_COMMAND:
+		pAct = new SelectCommandAction(this);
+		break;
+
+	case EXECUTE_COMMANDS:
+		pAct = new ExecuteCommandsAction(this);
+		break;
+	case REBOOT_REPAIR:
+		pAct = new RebootRepairAction(this); // added case yargoola
+		break;
+	case NEW_GAME:
+		pAct = new NewGameAction(this);
+		break;
 	case STATUS:	// a click on the status bar ==> no action
 		return;
 	}

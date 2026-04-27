@@ -49,7 +49,7 @@ enum ActionType // The actions supported (add more as needed)
 
 	EXECUTE_COMMANDS,	// Execute the saved commands
 	SELECT_COMMAND,		// Select a command from the available ones to be executed
-
+	REBOOT_REPAIR,   // mtnsash de yasta
 	TO_DESIGN_MODE,	// Go to Design Mode  --> handled by SwitchToDesignModeAction
 
 	///TODO: Add more action types of Play Mode

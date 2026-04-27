@@ -1,31 +1,32 @@
 #include "SwitchToDesignModeAction.h"
+#include "ApplicationManager.h"
 #include "Grid.h"
 #include "Output.h"
 
-SwitchToDesignModeAction::SwitchToDesignModeAction(ApplicationManager* pApp) : Action(pApp)
+SwitchToDesignModeAction::SwitchToDesignModeAction(ApplicationManager* pApp)
+	: Action(pApp)
 {
 }
 
 void SwitchToDesignModeAction::ReadActionParameters()
 {
-	// No parameters needed -- a mode switch requires no user input
+	// No input needed
 }
 
 void SwitchToDesignModeAction::Execute()
 {
+	ReadActionParameters();
+
 	Grid* pGrid = pManager->GetGrid();
 	Output* pOut = pGrid->GetOutput();
 
-	// 1. Switch the global interface mode to Design Mode
 	UI.InterfaceMode = MODE_DESIGN;
 
-	// 2. Redraw the toolbar with Design Mode buttons
 	pOut->CreateDesignModeToolBar();
 
-	// 3. Update the full interface so the grid is redrawn
 	pManager->UpdateInterface();
 
-	///TODO: Add any cleanup needed when leaving Play Mode.
+	pOut->PrintMessage("Switched to Design Mode");
 }
 
 SwitchToDesignModeAction::~SwitchToDesignModeAction()

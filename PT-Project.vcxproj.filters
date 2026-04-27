@@ -196,6 +196,10 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="SwitchToDesignModeAction.cpp" />
     <ClCompile Include="SwitchToPlayModeAction.cpp" />
+    <ClCompile Include="SelectCommandAction.cpp" />
+    <ClCompile Include="ExecuteCommandsAction.cpp" />
+    <ClCompile Include="NewGameAction.cpp" />
+    <ClCompile Include="RebootRepairAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -322,6 +326,10 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="SwitchToDesignModeAction.h" />
     <ClInclude Include="SwitchToPlayModeAction.h" />
+    <ClInclude Include="SelectCommandAction.h" />
+    <ClInclude Include="ExecuteCommandsAction.h" />
+    <ClInclude Include="NewGameAction.h" />
+    <ClInclude Include="RebootRepairAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

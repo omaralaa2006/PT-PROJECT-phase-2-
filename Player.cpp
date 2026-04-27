@@ -1,34 +1,51 @@
 #include "Player.h"
-
 #include "GameObject.h"
 #include "GameState.h"
+#include "Output.h"
 
 Player::Player(Cell* pCell, int playerNum)
 	: playerNum(playerNum), health(10), currDirection(RIGHT), savedCommandCount(0)
 {
 	this->pCell = pCell;
 
-	// Initialise saved commands to NO_COMMAND
 	for (int i = 0; i < MaxSavedCommands; i++)
 		savedCommands[i] = NO_COMMAND;
 }
 
-// ====== Setters and Getters ======
+void Player::SetCell(Cell* cell)
+{
+	pCell = cell;
+}
 
-void  Player::SetCell(Cell* cell)   { pCell = cell; }
-Cell* Player::GetCell() const       { return pCell; }
+Cell* Player::GetCell() const
+{
+	return pCell;
+}
 
 void Player::SetHealth(int h)
 {
-	///TODO: Add validation (e.g. clamp to 0..MaxHealth)
-	health = h;
+	if (h < 0)
+		health = 0;
+	else if (h > 10)
+		health = 10;
+	else
+		health = h;
 }
-int Player::GetHealth() const       { return health; }
 
-Direction Player::GetDirection() const      { return currDirection; }
-void      Player::SetDirection(Direction d) { currDirection = d; }
+int Player::GetHealth() const
+{
+	return health;
+}
 
-// ====== Saved Commands ======
+Direction Player::GetDirection() const
+{
+	return currDirection;
+}
+
+void Player::SetDirection(Direction d)
+{
+	currDirection = d;
+}
 
 void Player::AddSavedCommand(Command cmd)
 {
@@ -40,49 +57,120 @@ void Player::ClearSavedCommands()
 {
 	for (int i = 0; i < MaxSavedCommands; i++)
 		savedCommands[i] = NO_COMMAND;
+
 	savedCommandCount = 0;
 }
 
-int     Player::GetSavedCommandCount() const { return savedCommandCount; }
+int Player::GetSavedCommandCount() const
+{
+	return savedCommandCount;
+}
+
 Command Player::GetSavedCommand(int index) const
 {
 	if (index >= 0 && index < savedCommandCount)
 		return savedCommands[index];
+
 	return NO_COMMAND;
 }
 
-// ====== Drawing Functions ======
-
 void Player::Draw(Output* pOut) const
 {
-	color playerColor = UI.PlayerColors[playerNum];
+	if (!pOut || !pCell)
+		return;
 
-	///TODO: Call the appropriate Output function to draw the player token with playerColor
+	color playerColor = UI.PlayerColors[playerNum];
+	pOut->DrawPlayer(pCell->GetCellPosition(), playerNum, playerColor, currDirection);
 }
 
 void Player::ClearDrawing(Output* pOut) const
 {
-	///TODO: Determine the correct background colour for this cell
-	//       (hint: may differ from UI.CellColor if cell is a WaterPit or DangerZone)
-	color cellColor = UI.CellColor;
+	if (!pOut || !pCell)
+		return;
 
-	///TODO: Call the appropriate Output function to draw the token using cellColor (erases it)
+	pOut->DrawCell(pCell->GetCellPosition(), UI.CellColor);
 }
-
-// ====== Game Logic ======
 
 void Player::Move(Grid* pGrid, GameState* pState)
 {
-	///TODO: Implement this function
-	// - Execute the saved commands one by one, waiting for a mouse click between each
-	// - After all commands are executed, apply the game object effect at the final cell (if any)
-	// - Use CellPosition and Grid to handle movement and cell updates
+	if (!pGrid || !pState || !pCell)
+		return;
+
+	for (int i = 0; i < savedCommandCount; i++)
+	{
+		Command cmd = savedCommands[i];
+
+		if (cmd == ROTATE_CLOCKWISE)
+		{
+			if (currDirection == UP)
+				currDirection = RIGHT;
+			else if (currDirection == RIGHT)
+				currDirection = DOWN;
+			else if (currDirection == DOWN)
+				currDirection = LEFT;
+			else if (currDirection == LEFT)
+				currDirection = UP;
+		}
+		else if (cmd == ROTATE_COUNTERCLOCKWISE)
+		{
+			if (currDirection == UP)
+				currDirection = LEFT;
+			else if (currDirection == LEFT)
+				currDirection = DOWN;
+			else if (currDirection == DOWN)
+				currDirection = RIGHT;
+			else if (currDirection == RIGHT)
+				currDirection = UP;
+		}
+		else
+		{
+			int steps = 0;
+			Direction moveDirection = currDirection;
+
+			if (cmd == MOVE_FORWARD_ONE_STEP)
+				steps = 1;
+			else if (cmd == MOVE_FORWARD_TWO_STEPS)
+				steps = 2;
+			else if (cmd == MOVE_FORWARD_THREE_STEPS)
+				steps = 3;
+			else if (cmd == MOVE_BACKWARD_ONE_STEP)
+				steps = 1;
+			else if (cmd == MOVE_BACKWARD_TWO_STEPS)
+				steps = 2;
+			else if (cmd == MOVE_BACKWARD_THREE_STEPS)
+				steps = 3;
+
+			if (cmd == MOVE_BACKWARD_ONE_STEP ||
+				cmd == MOVE_BACKWARD_TWO_STEPS ||
+				cmd == MOVE_BACKWARD_THREE_STEPS)
+			{
+				if (currDirection == UP)
+					moveDirection = DOWN;
+				else if (currDirection == DOWN)
+					moveDirection = UP;
+				else if (currDirection == RIGHT)
+					moveDirection = LEFT;
+				else if (currDirection == LEFT)
+					moveDirection = RIGHT;
+			}
+
+			if (steps > 0)
+			{
+				CellPosition newPos = pCell->GetCellPosition();
+				newPos.AddCellNum(steps, moveDirection);
+
+				if (newPos.IsValidCell())
+					pGrid->UpdatePlayerCell(this, newPos);
+			}
+		}
+	}
+
+	ClearSavedCommands();
 }
 
 void Player::AppendPlayerInfo(string& playersInfo) const
 {
-	// TODO: Modify the Info as needed
-	playersInfo += "P" + to_string(playerNum) + "(";
+	playersInfo += "P" + to_string(playerNum + 1) + "(";
 	playersInfo += to_string(currDirection) + ", ";
 	playersInfo += to_string(health) + ")";
 }

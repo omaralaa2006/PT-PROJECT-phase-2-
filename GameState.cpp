@@ -1,5 +1,4 @@
 #include "GameState.h"
-
 #include "Grid.h"
 #include "Player.h"
 #include "Cell.h"
@@ -7,18 +6,16 @@
 
 GameState::GameState(Grid* pGrid)
 {
-	// Create all Player objects starting at the board's designated start cell.
-	// The Grid provides the start cell position; the GameState owns the Player objects.// tesst
 	Cell* startCell = pGrid->GetStartCell();
 	Output* pOut = pGrid->GetOutput();
 
 	for (int i = 0; i < MaxPlayerCount; i++)
 	{
 		PlayerList[i] = new Player(startCell, i);
-		PlayerList[i]->Draw(pOut); // draw initial position
+		PlayerList[i]->Draw(pOut);
 	}
 
-	currPlayerNumber = 0;         // Player 0 goes first by default
+	currPlayerNumber = 0;
 	currentPhase = PHASE_MOVEMENT;
 	endGame = false;
 }
@@ -29,21 +26,17 @@ GameState::~GameState()
 		delete PlayerList[i];
 }
 
-// ========== Player Access ==========
-
 Player* GameState::GetCurrentPlayer() const
 {
-	///TODO: Return the player whose turn it is
-	return PlayerList[0]; // wrong -- update this
+	return PlayerList[currPlayerNumber];
 }
 
 Player* GameState::GetPlayer(int playerNum) const
 {
-	///TODO: Return the player with the given player number
-	return PlayerList[0]; // wrong -- update this
+	if (playerNum >= 0 && playerNum < MaxPlayerCount)
+		return PlayerList[playerNum];
+	return nullptr;
 }
-
-// ========== Turn Management ==========
 
 void GameState::AdvanceCurrentPlayer()
 {
@@ -52,10 +45,9 @@ void GameState::AdvanceCurrentPlayer()
 
 void GameState::SetFirstPlayer(int playerNum)
 {
-	///TODO: Implement this function to set which player goes first this round
+	if (playerNum >= 0 && playerNum < MaxPlayerCount)
+		currPlayerNumber = playerNum;
 }
-
-// ========== Phase Management ==========
 
 PhaseType GameState::GetCurrentPhase() const
 {
@@ -69,13 +61,8 @@ void GameState::SetCurrentPhase(PhaseType phase)
 
 void GameState::AdvancePhase()
 {
-	// Currently only PHASE_MOVEMENT exists.
-	// [OPTIONAL BONUS] If you add PHASE_SHOOTING to the PhaseType enum (DEFS.h),
-	// update this to cycle:  MOVEMENT --> SHOOTING --> MOVEMENT
 	currentPhase = PHASE_MOVEMENT;
 }
-
-// ========== End-Game ==========
 
 bool GameState::GetEndGame() const
 {
@@ -87,11 +74,13 @@ void GameState::SetEndGame(bool end)
 	endGame = end;
 }
 
-// ========== Drawing Helpers ==========
-
 void GameState::DrawAllPlayers(Output* pOut) const
 {
-	///TODO: Draw all players
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		if (PlayerList[i])
+			PlayerList[i]->Draw(pOut);
+	}
 }
 
 void GameState::AppendPlayersInfo(string& info) const
