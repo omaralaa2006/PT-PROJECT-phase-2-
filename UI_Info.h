@@ -26,7 +26,6 @@ enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more item
 	ITM_SET_FLAG_CELL,
 	ITM_EXIT,
 	ITM_SWITCH_TO_PLAY_MODE,
-	ITM_ADD_FLAG,
 	ITM_ADD_ANTENNA,
 	ITM_ADD_BELT,
 	ITM_ADD_WATER_PITS,
@@ -38,7 +37,6 @@ enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more item
 	ITM_PASTE,
 	ITM_DELETE,
 	ITM_SAVE,
-	ITM_OPEN,
 
 	///TODO: Add more items names here
 	ITM_LOAD,

@@ -183,6 +183,7 @@ void Output::DrawImageInCell(const CellPosition& cellPos, string image, int widt
 	int y = GetCellStartY(cellPos) + UI.CellHeight / 4;
 
 	// TODO: Complete the implementation of this function
+	pWind->DrawImage(image, x, y, width, height);
 
 }
 
@@ -238,27 +239,22 @@ void Output::CreateDesignModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[DESIGN_ITM_COUNT];
-	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
-	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg";
-
-	///TODO: Change the path of the images as needed
-	MenuItemImages[ITM_SET_FLAG_CELL] = "images\\Flag.jpg";
-	MenuItemImages[ITM_ADD_FLAG] = "images\\Flag.jpg";
-	MenuItemImages[ITM_ADD_ANTENNA] = "images\\Antenna.jpg";
-	MenuItemImages[ITM_ADD_BELT] = "images\\Belt.jpg";
-	MenuItemImages[ITM_ADD_WATER_PITS] = "images\\WaterPits.jpg";
-	MenuItemImages[ITM_ADD_DANGER_ZONE] = "images\\DangerZone.jpg";
-	MenuItemImages[ITM_ADD_WORK_SHOP] = "images\\Workshop.jpg";
-	MenuItemImages[ITM_ROTATING_GEAR] = "images\\Rotating.jpg";
-	MenuItemImages[ITM_COPY] = "images\\Copy.jpg";
-	MenuItemImages[ITM_CUT] = "images\\Cut.jpg";
-	MenuItemImages[ITM_PASTE] = "images\\Paste.jpg";
-	MenuItemImages[ITM_DELETE] = "images\\Delete.jpg";
-	MenuItemImages[ITM_SAVE] = "images\\Save.jpg";
-	MenuItemImages[ITM_OPEN] = "images\\Open.jpg";
-	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
-	MenuItemImages[ITM_LOAD] = "images\\Load.jpg";
-
+	MenuItemImages[ITM_SET_FLAG_CELL] = "images\\Flag.jpg";        
+	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";            
+	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg"; 
+	MenuItemImages[ITM_ADD_ANTENNA] = "images\\Antenna.jpg";       
+	MenuItemImages[ITM_ADD_BELT] = "images\\Belt.jpg";             
+	MenuItemImages[ITM_ADD_WATER_PITS] = "images\\WaterPits.jpg";  
+	MenuItemImages[ITM_ADD_DANGER_ZONE] = "images\\DangerZone.jpg"; 
+	MenuItemImages[ITM_ADD_WORK_SHOP] = "images\\Workshop.jpg";    
+	MenuItemImages[ITM_ROTATING_GEAR] = "images\\Rotating.jpg";    
+	MenuItemImages[ITM_COPY] = "images\\Copy.jpg";                 
+	MenuItemImages[ITM_CUT] = "images\\Cut.jpg";                   
+	MenuItemImages[ITM_PASTE] = "images\\Paste.jpg";               
+	MenuItemImages[ITM_DELETE] = "images\\Delete.jpg";             
+	MenuItemImages[ITM_SAVE] = "images\\Save.jpg";            
+	MenuItemImages[ITM_LOAD] = "images\\Load.jpg";                 
+	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";              
 	///TODO: Prepare images for each menu item and add it to the list
 
 
@@ -297,7 +293,7 @@ void Output::CreatePlayModeToolBar() const
 
 	MenuItemImages[ITM_EXECUTE_COMMANDS] = "images\\Menu_Dice.jpg";
 	MenuItemImages[ITM_SELECT_COMMAND] = "images\\SelectCommand.jpg";
-	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
+	//MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
 	MenuItemImages[ITM_ROBOT] = "images\\Robot.jpg";
 	MenuItemImages[ITM_EXIT_Play] = "images\\Menu_Exit.jpg";
 	MenuItemImages[ITM_MOVE_FORWARD] = "images\\MoveForwardCard.jpg";

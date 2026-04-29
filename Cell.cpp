@@ -3,6 +3,7 @@
 #include "Grid.h"
 #include "GameObject.h"
 #include "Belt.h"
+#include "Flag.h"
 #include "WaterPit.h"
 #include "Player.h"
 #include "DangerZone.h"
@@ -50,18 +51,19 @@ Belt * Cell::HasBelt() const
 
 Flag * Cell::HasFlag() const
 {
+	return dynamic_cast<Flag*>(pGameObject);
 
 	///TODO: Implement the following function like HasBelt() function
 
-	return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+	//mmkn yebaa ghlt
 
 }
 WaterPit * Cell::HasWaterPit() const
 {
-
+	return dynamic_cast<WaterPit*>(pGameObject);
 	///TODO: Implement the following function like HasBelt() function
 
-	return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+	//mmkn ytebaa ghlt 
 
 }
 
@@ -69,7 +71,8 @@ DangerZone * Cell::HasDangerZone() const
 {
 	///TODO: Implement the following function like HasBelt() function
 
-	return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+	return dynamic_cast<DangerZone*>(pGameObject);
+	//mmkn yebaa ghlt
 }
 
 
@@ -90,7 +93,10 @@ void Cell::DrawCellOrWaterPitOrDangerZone(Output* pOut) const
 void Cell::DrawGameObject(Output* pOut) const
 {
 	//TODO: edit this incomplete implemntation to check for other game objects (excluding waterpits and dangerzones)
+	if ((HasDangerZone() || HasWaterPit()))
+		return; 
 	if (HasFlag()|| HasBelt())
 		pGameObject->Draw(pOut); // draw game object
+	//mmkn yebaa ghlt bardo bas da el fhmah 
 
 }

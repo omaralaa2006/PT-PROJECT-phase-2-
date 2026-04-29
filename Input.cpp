@@ -75,7 +75,7 @@ int Input::GetInteger(Output* pO) const
 	}
 	// Note: stoi(s) converts string s into its equivalent integer (for example, "55" is converted to 55)
 
-	return 0; // this line should be changed with your implementation
+	
 }
 
 //======================================================================================//
@@ -146,12 +146,15 @@ ActionType Input::GetUserAction() const
 			int clickedItemOrder = x / UI.MenuItemWidth;
 			switch (clickedItemOrder)
 			{
-			case ITM_SELECT_COMMAND: return SELECT_COMMAND;
-			case ITM_EXECUTE_COMMANDS: return EXECUTE_COMMANDS;
-			case ITM_ROBOT: return ADD_ROBOT; // Match your DEFS.h
-			case ITM_NEW_GAME: return NEW_GAME;
-			case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;
-			case ITM_EXIT_Play: return EXIT_Play;
+			case ITM_EXECUTE_COMMANDS: return EXECUTE_COMMANDS;      // 0
+			case ITM_SELECT_COMMAND: return SELECT_COMMAND;          // 1
+			case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;   // 2
+			case ITM_ROBOT: return ADD_ROBOT;                        // 3
+			case ITM_EXIT_Play: return EXIT_Play;                    // 4
+			case ITM_MOVE_FORWARD: return MOVE_FORWARD;              // 5
+			case ITM_MOVE_BAKWARD: return MOVE_BACKWARD;             // 6
+			case ITM_ROTATE_LEFT: return ROTATE_LEFT;                // 7
+			case ITM_ROTATE_RIGHT: return ROTATE_RIGHT;              // 8
 			default: return EMPTY;
 			}
 		}
