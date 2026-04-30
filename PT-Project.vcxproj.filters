@@ -200,6 +200,12 @@
     <ClCompile Include="ExecuteCommandsAction.cpp" />
     <ClCompile Include="NewGameAction.cpp" />
     <ClCompile Include="RebootRepairAction.cpp" />
+    <ClCompile Include="AddAntennaAction.cpp" />
+    <ClCompile Include="AddDangerZoneAction.cpp" />
+    <ClCompile Include="AddWaterPitAction.cpp" />
+    <ClCompile Include="AddWorkShopAction.cpp" />
+    <ClCompile Include="DeleteGameObjectAction.cpp" />
+    <ClCompile Include="CopyGameObjectAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -330,6 +336,12 @@
     <ClInclude Include="ExecuteCommandsAction.h" />
     <ClInclude Include="NewGameAction.h" />
     <ClInclude Include="RebootRepairAction.h" />
+    <ClInclude Include="AddAntennaACtion.h" />
+    <ClInclude Include="AddDangerZoneAction.h" />
+    <ClInclude Include="AddWaterPitAction.h" />
+    <ClInclude Include="AddWorkShopAction.h" />
+    <ClInclude Include="DeleteGameObjectAction.h" />
+    <ClInclude Include="CopyGameObjectAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

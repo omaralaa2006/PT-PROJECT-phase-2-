@@ -10,6 +10,7 @@
 #include "SwitchToPlayModeAction.h"
 #include "SwitchToDesignModeAction.h"
 ///TODO: Add #include for all action types
+#include "CopyGameObjectAction.h"
 
 #include "GameState.h"
 
@@ -85,6 +86,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_FLAG:
 		pAct = new AddFlagAction(this);
 		break;
+	case COPY_OBJECT:
+		pAct = new CopyGameObjectAction(this);
+		break;
 
 	case TO_PLAY_MODE:
 		pAct = new SwitchToPlayModeAction(this);
@@ -116,11 +120,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case STATUS:	// a click on the status bar ==> no action
 		return;
 	}
-	//ana salma de hagah lel addflagaction
-	if (pAct) {
-		pAct->Execute();
-		delete pAct;
-	}
+
 	//men hna bedayat el code elasasi
 	// Execute the created action
 	if(pAct != NULL)

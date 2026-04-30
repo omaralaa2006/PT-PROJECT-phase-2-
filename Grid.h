@@ -35,6 +35,7 @@ class Grid
 	Input*  pIn;   // Pointer to the Input object
 
 	Cell* CellList[NumVerticalCells][NumHorizontalCells]; // Every cell on the board
+	
 
 	GameObject* Clipboard; // Used in copy / cut / paste
 
@@ -69,7 +70,7 @@ public:
 	Cell* GetStartCell() const;
 
 	///TODO: Add any additional board-query getters here (e.g. GetCell(CellPosition))
-
+	Cell* GetCell(const CellPosition& pos) const;
 	// ========== User Interface ==========
 
 	// It Updates the Grid according to the last state of the game
