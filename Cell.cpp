@@ -5,6 +5,7 @@
 #include "Belt.h"
 #include "Flag.h"
 #include "WaterPit.h"
+#include "Antenna.h"
 #include "Player.h"
 #include "DangerZone.h"
 #include "Output.h"
@@ -74,6 +75,13 @@ DangerZone * Cell::HasDangerZone() const
 	return dynamic_cast<DangerZone*>(pGameObject);
 	//mmkn yebaa ghlt
 }
+Antenna * Cell::HasAntenna() const
+{
+	///TODO: Implement the following function like HasBelt() function
+
+	return dynamic_cast<Antenna*>(pGameObject);
+	//mmkn yebaa ghlt
+}
 
 
 // ======= Drawing Functions ======= 
@@ -95,7 +103,7 @@ void Cell::DrawGameObject(Output* pOut) const
 	//TODO: edit this incomplete implemntation to check for other game objects (excluding waterpits and dangerzones)
 	if ((HasDangerZone() || HasWaterPit()))
 		return; 
-	if (HasFlag()|| HasBelt())
+	if (HasFlag() || HasBelt() || HasAntenna())
 		pGameObject->Draw(pOut); // draw game object
 	//mmkn yebaa ghlt bardo bas da el fhmah 
 
