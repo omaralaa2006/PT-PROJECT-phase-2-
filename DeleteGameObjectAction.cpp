@@ -24,12 +24,20 @@ void DeleteGameObjectAction::Execute() {
     if (cellPos.IsValidCell()) {
         Grid* pGrid = pManager->GetGrid();
         Output* pOut = pManager->GetOutput();
-        bool removed = pGrid->RemoveObjectFromCell(cellPos);
-        if (removed) {
-            pOut->PrintMessage("Object deleted successfully.");
-        }
-        else {
-            pOut->PrintMessage("Error: No object exists in this cell!");
+        Cell* pCell = pGrid->GetCell(cellPos);
+
+        if (pCell != NULL) {
+            GameObject* pObj = pCell->GetGameObject();
+
+            if (pObj != NULL) {
+                bool removed = pGrid->RemoveObjectFromCell(cellPos);
+                if (removed) {
+                    pOut->PrintMessage("Object deleted successfully.");
+                }
+            }
+            else {
+                pOut->PrintMessage("Error: No object exists in this cell!");
+            }
         }
     }
 }

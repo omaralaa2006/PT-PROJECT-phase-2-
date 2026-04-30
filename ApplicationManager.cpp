@@ -12,6 +12,7 @@
 ///TODO: Add #include for all action types
 #include "CopyGameObjectAction.h"
 #include "CutGameObjectAction.h"
+#include "DeleteGameObjectAction.h"
 
 #include "GameState.h"
 
@@ -92,6 +93,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case CUT_OBJECT:
 		pAct = new CutGameObjectAction(this);
+		break;
+	case DELETE_OBJECT:
+		pAct = new DeleteGameObjectAction(this);
 		break;
 
 	case TO_PLAY_MODE:

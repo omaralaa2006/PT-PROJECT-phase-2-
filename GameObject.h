@@ -24,10 +24,10 @@ public:
 	virtual void Draw(Output* pOut) const = 0;
 
 	virtual void Apply(Grid* pGrid, GameState* pState, Player* pPlayer) = 0;
-
+	virtual GameObject* Clone() = 0;
 	// Save / Load (uncomment and implement in derived classes when needed):
-	// virtual void Save(ofstream& OutFile) = 0;
-	// virtual void Load(ifstream& Infile)  = 0;
+	//virtual void Save(ofstream& OutFile) = 0;
+	//virtual void Load(ifstream& Infile)  = 0;
 
 	virtual ~GameObject();
 };
