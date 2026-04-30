@@ -28,7 +28,16 @@ public:
 
 	ApplicationManager();  // Creates Output, Input, Grid, then GameState (in that order)
 	~ApplicationManager(); // Deletes GameState then Grid (Grid deletes pIn and pOut)
-
+	//ana salma 
+	Input* GetInput()const
+	{
+		return pIn;
+	}
+	Output* GetOutput() const
+	{
+		return pOut;
+	}
+    //done
 	// ========== Interface Management ==========
 
 	Grid*      GetGrid()      const; // Returns the game board

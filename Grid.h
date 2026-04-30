@@ -45,7 +45,8 @@ public:
 	// ========== Board Operations ==========
 
 	bool AddObjectToCell(GameObject* pNewObject);        // Adds object to its cell; returns false if cell is occupied
-	void RemoveObjectFromCell(const CellPosition& pos); // Removes the GameObject of the Cell of the passed "position"
+	//ana salma I've changed the return type of renove object from cell from voig to bool
+	bool RemoveObjectFromCell(const CellPosition& pos); // Removes the GameObject of the Cell of the passed "position"
 	                                                     // Note: You may need to change the return type of this function (Think)
 
 	void UpdatePlayerCell(Player* player, const CellPosition& newPosition); // Update the player's pCell with the CellList's Cell pointer of the "newPosition",

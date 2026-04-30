@@ -116,7 +116,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case STATUS:	// a click on the status bar ==> no action
 		return;
 	}
-
+	//ana salma de hagah lel addflagaction
+	if (pAct) {
+		pAct->Execute();
+		delete pAct;
+	}
+	//men hna bedayat el code elasasi
 	// Execute the created action
 	if(pAct != NULL)
 	{

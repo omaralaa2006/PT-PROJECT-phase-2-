@@ -34,14 +34,16 @@ bool Grid::AddObjectToCell(GameObject* pNewObject)
 	}
 	return false;
 }
-
-void Grid::RemoveObjectFromCell(const CellPosition& pos)
+// ana salma zwedt hagat hna
+bool Grid::RemoveObjectFromCell(const CellPosition& pos)
 {
 	if (pos.IsValidCell())
 	{
 		// Note: deallocate the object here before NULLing if ownership requires it
 		CellList[pos.VCell()][pos.HCell()]->SetGameObject(NULL);
+		return true;
 	}
+	return false;
 }
 
 void Grid::UpdatePlayerCell(Player* player, const CellPosition& newPosition)

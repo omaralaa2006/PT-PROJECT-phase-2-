@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Output.h"
 #include "RotatingGear.h"
+#include"Grid.h"
 class AddRotatingGearAction :public Action
 {
 	CellPosition gearPos; //The position of the rotating gear

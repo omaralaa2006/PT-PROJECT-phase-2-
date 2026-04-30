@@ -24,7 +24,11 @@ void AddBeltAction::ReadActionParameters()
 
 
 	///TODO: Make the needed validations on the read parameters
-
+	if (!startPos.IsValidCell() || !endPos.IsValidCell() || startPos.GetCellNum() == 1 || startPos.GetCellNum() == 55|| endPos.GetCellNum() == 1 || endPos.GetCellNum() == 55)
+	{
+		pOut->PrintMessage("Error!invalid postion.");
+		startPos = CellPosition(-1, -1);
+	}
 
 
 	// Clear messages
