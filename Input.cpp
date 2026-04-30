@@ -113,7 +113,7 @@ ActionType Input::GetUserAction() const
 			case ITM_ADD_WATER_PITS: return ADD_WATER_PIT;
 			case ITM_ADD_DANGER_ZONE: return ADD_DANGER_ZONE;
 			case ITM_ADD_WORK_SHOP: return ADD_WORKSHOP;
-			case ITM_ROTATING_GEAR: return ADD_GEAR;
+			case ITM_ROTATING_GEAR: return ADD_ROTATINGGEAR;
 			case ITM_COPY: return COPY_OBJECT;
 			case ITM_CUT: return CUT_OBJECT;
 			case ITM_PASTE: return PASTE_OBJECT;

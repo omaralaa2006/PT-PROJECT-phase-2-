@@ -13,6 +13,8 @@
 #include "CopyGameObjectAction.h"
 #include "CutGameObjectAction.h"
 #include "DeleteGameObjectAction.h"
+#include "AddWaterPitAction.h"
+#include "AddAntennaAction.h"
 
 #include "GameState.h"
 
@@ -77,17 +79,32 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	// According to Action Type, create the corresponding action object
 	switch (ActType)
 	{
+	case SET_FLAG_CELL:
+		pAct = new AddFlagAction(this);
+		break;
+	case EXIT:
+		break;
+	case TO_PLAY_MODE:
+		pAct = new SwitchToPlayModeAction(this);
+		break;
+	case ADD_ANTENNA:
+		pAct = new AddAntennaAction(this);
+		break;
 	case ADD_BELT:
 		pAct = new AddBeltAction(this);
 		break;
+	case ADD_WATER_PIT:
+		pAct = new AddWaterPitAction(this);
+		break;
+
 
 	case ADD_ROTATINGGEAR:
 		pAct = new AddRotatingGearAction(this);
 		break;
 
-	case ADD_FLAG:
-		pAct = new AddFlagAction(this);
-		break;
+	
+
+
 	case COPY_OBJECT:
 		pAct = new CopyGameObjectAction(this);
 		break;
@@ -98,12 +115,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new DeleteGameObjectAction(this);
 		break;
 
-	case TO_PLAY_MODE:
-		pAct = new SwitchToPlayModeAction(this);
-		break;
 
-	case EXIT:
-		break;
+	
 
 	///TODO: Add a case for EACH remaining Design Mode action type
 

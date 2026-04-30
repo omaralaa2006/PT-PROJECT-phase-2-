@@ -26,16 +26,16 @@ enum ActionType // The actions supported (add more as needed)
 	SET_FLAG_CELL,	// Set Flag on a Cell
 	EXIT,			// Exit Application
 	TO_PLAY_MODE,	// Go to Play Mode  --> handled by SwitchToPlayModeAction
+	ADD_ANTENNA,
 	ADD_BELT,
-	ADD_ROTATINGGEAR,
-	ADD_FLAG,
-
-	///TODO: Add more action types of Design Mode
-	ADD_ANTENNA,       
 	ADD_WATER_PIT,
 	ADD_DANGER_ZONE,
 	ADD_WORKSHOP,
-	ADD_GEAR,
+	ADD_ROTATINGGEAR,
+
+
+	///TODO: Add more action types of Design Mode
+	     
 	COPY_OBJECT,
 	CUT_OBJECT,
 	PASTE_OBJECT,
