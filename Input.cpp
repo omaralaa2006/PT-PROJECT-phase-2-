@@ -120,6 +120,7 @@ ActionType Input::GetUserAction() const
 			case ITM_DELETE: return DELETE_OBJECT;
 			case ITM_SAVE: return SAVE_GRID;
 			case ITM_LOAD: return LOAD_GRID;
+			case ITM_NEW_GAME: return NEW_GAME;
 			default: return EMPTY;	// A click on empty place in toolbar
 			}
 		}
@@ -150,7 +151,7 @@ ActionType Input::GetUserAction() const
 			case ITM_SELECT_COMMAND: return SELECT_COMMAND;          // 1
 			case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;   // 2
 			case ITM_ROBOT: return REBOOT_REPAIR;                        // 3
-			case ITM_EXIT_Play: return EXIT_Play;                    // 4
+			case ITM_EXIT_Play: return EXIT;                    // 4
 			case ITM_MOVE_FORWARD: return MOVE_FORWARD;              // 5
 			case ITM_MOVE_BAKWARD: return MOVE_BACKWARD;             // 6
 			case ITM_ROTATE_LEFT: return ROTATE_LEFT;                // 7

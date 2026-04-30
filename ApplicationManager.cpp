@@ -17,6 +17,7 @@
 #include "AddAntennaAction.h"
 #include "AddDangerZoneAction.h"
 #include "AddWorkShopAction.h"
+#include "PasteGameObjectAction.h"
 
 #include "GameState.h"
 
@@ -122,8 +123,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case DELETE_OBJECT:
 		pAct = new DeleteGameObjectAction(this);
 		break;
+	case PASTE_OBJECT:
+		pAct = new PasteGameObjectAction(this);
+		break;
 
-
+	case NEW_GAME:
+		pAct = new NewGameAction(this);
+		break;
 
 
 		///TODO: Add a case for EACH remaining Design Mode action type
@@ -137,6 +143,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case TO_DESIGN_MODE:
 		pAct = new SwitchToDesignModeAction(this);
 		break;
+	case EXIT_Play:
+		break;
 
 		///TODO: Add a case for EACH remaining Play Mode action type
 
@@ -144,9 +152,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case REBOOT_REPAIR:
 		pAct = new RebootRepairAction(this); // added case yargoola
 		break;
-	case NEW_GAME:
-		pAct = new NewGameAction(this);
-		break;
+
 	case STATUS:	// a click on the status bar ==> no action
 		return;
 	}
@@ -160,4 +166,3 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = NULL;
 	}
 }
-\
