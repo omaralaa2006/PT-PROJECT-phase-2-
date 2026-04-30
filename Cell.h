@@ -19,24 +19,24 @@ class Cell
 {
 	const CellPosition position;	// the cell position (vCell and hCell) --> will not change after the Cell is constructed
 
-	GameObject * pGameObject;       // a pointer to the GameObject existing in the Cell (if any)
-	                                // if no GameObject in this Cell, pGameObject should be NULL
+	GameObject* pGameObject;       // a pointer to the GameObject existing in the Cell (if any)
+	// if no GameObject in this Cell, pGameObject should be NULL
 
 public:
 
-	Cell(const CellPosition & pos); // A constructor initializes the cell position with the passed CellPosition
+	Cell(const CellPosition& pos); // A constructor initializes the cell position with the passed CellPosition
 	Cell(int v, int h);		        // A constructor initializes the cell position with the passed vCell and hCell
 
 	// ======= Setters and Getters Functions ======= 
 
 	CellPosition GetCellPosition() const;   // A getter for the "position" data member
-	
-	bool SetGameObject(GameObject * pGObj);	// A setter for pGameObject of the cell
-	                                        // It does NOT add the object and returns false if the cell already contains one
-	GameObject * GetGameObject() const;     // A getter for pGameObject of the cell
+
+	bool SetGameObject(GameObject* pGObj);	// A setter for pGameObject of the cell
+	// It does NOT add the object and returns false if the cell already contains one
+	GameObject* GetGameObject() const;     // A getter for pGameObject of the cell
 	//TODO implement similar functions to check if a cell has a specific gameobject if needed	
-	Belt * HasBelt() const;	// Checks if pGameObject is a Belt Then returns true if it is a belt or returns NULL if not belt
-	Flag * HasFlag() const;	    // Checks if pGameObject is a Flag Then returns true if it is a flag or returns NULL if not flag
+	Belt* HasBelt() const;	// Checks if pGameObject is a Belt Then returns true if it is a belt or returns NULL if not belt
+	Flag* HasFlag() const;	    // Checks if pGameObject is a Flag Then returns true if it is a flag or returns NULL if not flag
 	WaterPit* HasWaterPit() const;
 	DangerZone* HasDangerZone() const;
 	Antenna* HasAntenna() const;
@@ -50,7 +50,6 @@ public:
 	// The two Draw functions are separated because we should draw all cells first
 	// then draw all other game objects, in order to avoid overlapping 
 	// or drawing cell's background over existing game objects
-	void DrawGameObject(Output* pOut) const;	
-	
-};
+	void DrawGameObject(Output* pOut) const;
 
+};

@@ -11,7 +11,7 @@
 #include "Workshop.h"
 #include "Output.h"
 #include "RotatingGear.h"
-Cell::Cell(const CellPosition & pos) : position(pos)
+Cell::Cell(const CellPosition& pos) : position(pos)
 {
 	// initializes the data members (position & pGameObject)
 	pGameObject = NULL;
@@ -32,7 +32,7 @@ CellPosition Cell::GetCellPosition() const
 	return position;
 }
 
-bool Cell::SetGameObject(GameObject * pGObj)
+bool Cell::SetGameObject(GameObject* pGObj)
 {
 	if (pGameObject != NULL && pGObj != NULL) // already contains one
 		return false; // do NOT add it and return false
@@ -41,18 +41,18 @@ bool Cell::SetGameObject(GameObject * pGObj)
 	return true;
 }
 
-GameObject * Cell::GetGameObject() const
+GameObject* Cell::GetGameObject() const
 {
 	return pGameObject;
 }
 
-Belt * Cell::HasBelt() const
+Belt* Cell::HasBelt() const
 {
-	return dynamic_cast<Belt *>(pGameObject);
+	return dynamic_cast<Belt*>(pGameObject);
 }
 
 
-Flag * Cell::HasFlag() const
+Flag* Cell::HasFlag() const
 {
 	return dynamic_cast<Flag*>(pGameObject);
 
@@ -61,7 +61,7 @@ Flag * Cell::HasFlag() const
 	//mmkn yebaa ghlt
 
 }
-WaterPit * Cell::HasWaterPit() const
+WaterPit* Cell::HasWaterPit() const
 {
 	return dynamic_cast<WaterPit*>(pGameObject);
 	///TODO: Implement the following function like HasBelt() function
@@ -70,7 +70,7 @@ WaterPit * Cell::HasWaterPit() const
 
 }
 
-DangerZone * Cell::HasDangerZone() const
+DangerZone* Cell::HasDangerZone() const
 {
 	///TODO: Implement the following function like HasBelt() function
 
@@ -101,10 +101,10 @@ RotatingGear* Cell::HasGear() const
 void Cell::DrawCellOrWaterPitOrDangerZone(Output* pOut) const
 {
 	// Checks if there is a dangerzone or a waterpit on the cell
-	if (HasDangerZone()||HasWaterPit()) // means if not NULL
+	if (HasDangerZone() || HasWaterPit()) // means if not NULL
 		pGameObject->Draw(pOut); // draw the dangerzone or waterpit  then
 	else
-		pOut->DrawCell(position,UI.CellColor); // draw empty cell 
+		pOut->DrawCell(position, UI.CellColor); // draw empty cell 
 }
 
 // separate from the above function 
@@ -114,8 +114,8 @@ void Cell::DrawGameObject(Output* pOut) const
 {
 	//TODO: edit this incomplete implemntation to check for other game objects (excluding waterpits and dangerzones)
 	if ((HasDangerZone() || HasWaterPit()))
-		return; 
-	if (HasFlag() || HasBelt()|| HasAntenna()||HasWorkShop() || HasGear())
+		return;
+	if (HasFlag() || HasBelt() || HasAntenna() || HasWorkShop() || HasGear())
 		pGameObject->Draw(pOut); // draw game object
 	//mmkn yebaa ghlt bardo bas da el fhmah 
 

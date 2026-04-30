@@ -27,8 +27,8 @@ ApplicationManager::ApplicationManager()
 	//   2. Grid            (needed by GameState -- provides the start Cell)
 	//   3. GameState       (creates and draws initial players)
 	pOut = new Output();
-	pIn  = pOut->CreateInput();
-	pGrid      = new Grid(pIn, pOut);
+	pIn = pOut->CreateInput();
+	pGrid = new Grid(pIn, pOut);
 	pGameState = new GameState(pGrid);
 }
 
@@ -101,7 +101,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_DANGER_ZONE:
 		pAct = new AddDangerZoneAction(this);
 		break;
-	case 	ADD_WORKSHOP :
+	case 	ADD_WORKSHOP:
 		pAct = new AddWorkShopAction(this);
 		break;
 
@@ -110,7 +110,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new AddRotatingGearAction(this);
 		break;
 
-	
+
 
 
 	case COPY_OBJECT:
@@ -124,9 +124,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 
-	
 
-	///TODO: Add a case for EACH remaining Design Mode action type
+
+		///TODO: Add a case for EACH remaining Design Mode action type
 
 	case EXECUTE_COMMANDS:
 		pAct = new ExecuteCommandsAction(this);
@@ -138,7 +138,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new SwitchToDesignModeAction(this);
 		break;
 
-	///TODO: Add a case for EACH remaining Play Mode action type
+		///TODO: Add a case for EACH remaining Play Mode action type
 
 
 	case REBOOT_REPAIR:
@@ -153,10 +153,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	//men hna bedayat el code elasasi
 	// Execute the created action
-	if(pAct != NULL)
+	if (pAct != NULL)
 	{
 		pAct->Execute(); // Execute
 		delete pAct;	 // Action is not needed any more after executing ==> delete it
 		pAct = NULL;
 	}
 }
+\
