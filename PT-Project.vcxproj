@@ -177,6 +177,7 @@
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant1.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jquant2.c" />
     <ClCompile Include="CMUgraphicsLib\jpeg\jutils.c" />
+    <ClCompile Include="CopyGameObject.cpp" />
     <ClCompile Include="CopyGameObjectAction.cpp" />
     <ClCompile Include="CutGameObjectAction.cpp" />
     <ClCompile Include="DangerZone.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="CMUgraphicsLib\jpeg\jpegint.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jpeglib.h" />
     <ClInclude Include="CMUgraphicsLib\jpeg\jversion.h" />
+    <ClInclude Include="CopyGameObject.h" />
     <ClInclude Include="CopyGameObjectAction.h" />
     <ClInclude Include="CutGameObjectAction.h" />
     <ClInclude Include="DangerZone.h" />
