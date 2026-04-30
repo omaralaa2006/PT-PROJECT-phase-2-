@@ -11,7 +11,10 @@ class Belt;
 class WaterPit;
 class Flag;
 class Player;
+class Antenna;
 class DangerZone;
+class Workshop;
+class RotatingGear;
 class Cell
 {
 	const CellPosition position;	// the cell position (vCell and hCell) --> will not change after the Cell is constructed
@@ -37,6 +40,8 @@ public:
 	WaterPit* HasWaterPit() const;
 	DangerZone* HasDangerZone() const;
 	Antenna* HasAntenna() const;
+	Workshop* HasWorkShop() const;
+	RotatingGear* HasGear() const;
 	// ======= Drawing Functions ======= 
 
 	void DrawCellOrWaterPitOrDangerZone(Output* pOut) const;	// Draws the Cell either has waterpit or dangerzone(either of the gameobjects changes the cell color)

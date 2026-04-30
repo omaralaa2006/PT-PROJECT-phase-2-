@@ -16,6 +16,7 @@
 #include "AddWaterPitAction.h"
 #include "AddAntennaAction.h"
 #include "AddDangerZoneAction.h"
+#include "AddWorkShopAction.h"
 
 #include "GameState.h"
 
@@ -99,6 +100,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case ADD_DANGER_ZONE:
 		pAct = new AddDangerZoneAction(this);
+		break;
+	case 	ADD_WORKSHOP :
+		pAct = new AddWorkShopAction(this);
 		break;
 
 
