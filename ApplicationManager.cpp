@@ -15,6 +15,7 @@
 #include "DeleteGameObjectAction.h"
 #include "AddWaterPitAction.h"
 #include "AddAntennaAction.h"
+#include "AddDangerZoneAction.h"
 
 #include "GameState.h"
 
@@ -96,6 +97,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case ADD_WATER_PIT:
 		pAct = new AddWaterPitAction(this);
 		break;
+	case ADD_DANGER_ZONE:
+		pAct = new AddDangerZoneAction(this);
+		break;
 
 
 	case ADD_ROTATINGGEAR:
@@ -120,18 +124,19 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 	///TODO: Add a case for EACH remaining Design Mode action type
 
+	case EXECUTE_COMMANDS:
+		pAct = new ExecuteCommandsAction(this);
+		break;
+	case SELECT_COMMAND:
+		pAct = new SelectCommandAction(this);
+		break;
 	case TO_DESIGN_MODE:
 		pAct = new SwitchToDesignModeAction(this);
 		break;
 
 	///TODO: Add a case for EACH remaining Play Mode action type
-	case SELECT_COMMAND:
-		pAct = new SelectCommandAction(this);
-		break;
 
-	case EXECUTE_COMMANDS:
-		pAct = new ExecuteCommandsAction(this);
-		break;
+
 	case REBOOT_REPAIR:
 		pAct = new RebootRepairAction(this); // added case yargoola
 		break;

@@ -49,9 +49,8 @@ enum ActionType // The actions supported (add more as needed)
 
 	EXECUTE_COMMANDS,	// Execute the saved commands
 	SELECT_COMMAND,		// Select a command from the available ones to be executed
-	REBOOT_REPAIR,   // mtnsash de yasta
 	TO_DESIGN_MODE,	// Go to Design Mode  --> handled by SwitchToDesignModeAction
-	ROBOT,
+	REBOOT_REPAIR,   // mtnsash de yasta
 	EXIT_Play,
 	MOVE_FORWARD,
 	MOVE_BACKWARD,
