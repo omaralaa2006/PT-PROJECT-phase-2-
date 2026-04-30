@@ -1,25 +1,25 @@
-#include "CopyGameObjectAction.h"
+#include "CutGameObjectAction.h"
 
 #include "Input.h"
 #include "Output.h"
 #include "Grid.h"
 
-CopyGameObjectAction::CopyGameObjectAction(ApplicationManager* pApp) : Action(pApp)
+CutGameObjectAction::CutGameObjectAction(ApplicationManager* pApp) : Action(pApp)
 {
 }
-void CopyGameObjectAction::ReadActionParameters() {
+void CutGameObjectAction::ReadActionParameters() {
     Input* pIn = pManager->GetInput();
     Output* pOut = pManager->GetOutput();
 
-    pOut->PrintMessage("Click on the object you want to copy...");
+    pOut->PrintMessage("Click on the object you want to cut...");
     cellPos = pIn->GetCellClicked();
     if (!cellPos.IsValidCell()) {
         pOut->PrintMessage("Error: Clicked outside the grid!");
         cellPos = CellPosition(-1, -1);
     }
 }
-void CopyGameObjectAction::Execute() {
-    ReadActionParameters(); 
+void CutGameObjectAction::Execute() {
+    ReadActionParameters();
 
     if (cellPos.IsValidCell()) {
         Grid* pGrid = pManager->GetGrid();
@@ -29,12 +29,13 @@ void CopyGameObjectAction::Execute() {
         Cell* pCell = pGrid->GetCell(cellPos);
 
         if (pCell != NULL) {
-            
+
             GameObject* pObj = pCell->GetGameObject();
 
             if (pObj != NULL) {
                 pGrid->SetClipboard(pObj);
-                pOut->PrintMessage("Object copied to clipboard!");
+                pGrid->RemoveObjectFromCell(cellPos);
+                pOut->PrintMessage("Object deleted and copied to clipboard!");
             }
             else {
                 pOut->PrintMessage("Error: The clicked cell is empty!");
@@ -42,6 +43,6 @@ void CopyGameObjectAction::Execute() {
         }
     }
 }
-CopyGameObjectAction::~CopyGameObjectAction()
+CutGameObjectAction::~CutGameObjectAction()
 {
 }

@@ -11,6 +11,7 @@
 #include "SwitchToDesignModeAction.h"
 ///TODO: Add #include for all action types
 #include "CopyGameObjectAction.h"
+#include "CutGameObjectAction.h"
 
 #include "GameState.h"
 
@@ -88,6 +89,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 	case COPY_OBJECT:
 		pAct = new CopyGameObjectAction(this);
+		break;
+	case CUT_OBJECT:
+		pAct = new CutGameObjectAction(this);
 		break;
 
 	case TO_PLAY_MODE:

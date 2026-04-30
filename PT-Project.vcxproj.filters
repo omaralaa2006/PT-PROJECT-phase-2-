@@ -206,6 +206,8 @@
     <ClCompile Include="AddWorkShopAction.cpp" />
     <ClCompile Include="DeleteGameObjectAction.cpp" />
     <ClCompile Include="CopyGameObjectAction.cpp" />
+    <ClCompile Include="CutGameObjectAction.cpp" />
+    <ClCompile Include="PasteGameObjectAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -342,6 +344,8 @@
     <ClInclude Include="AddWorkShopAction.h" />
     <ClInclude Include="DeleteGameObjectAction.h" />
     <ClInclude Include="CopyGameObjectAction.h" />
+    <ClInclude Include="CutGameObjectAction.h" />
+    <ClInclude Include="PasteGameObjectAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
