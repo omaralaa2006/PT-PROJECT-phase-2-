@@ -14,7 +14,7 @@ void Antenna::Draw(Output * pOut) const
 
 
 void Antenna::Apply(Grid* pGrid, GameState* pState, Player* pPlayer )
-{
+ 
 	
 
 
