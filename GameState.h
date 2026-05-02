@@ -25,7 +25,7 @@ class GameState
 {
 	Player* PlayerList[MaxPlayerCount]; // Owns all Player objects
 
-	int currPlayerNumber; // index of the player whose turn it is (0..MaxPlayerCount-1)
+	int currentPlayerNumber; // index of the player whose turn it is (0..MaxPlayerCount-1)
 
 	PhaseType currentPhase; // Which phase of the current round we are in
 	bool endGame;           // True once a win/loss condition is detected
@@ -41,7 +41,7 @@ public:
 	// ========== Player Access ==========
 
 	Player* GetCurrentPlayer() const;           // Returns the player whose turn it is
-	Player* GetPlayer(int playerNum) const;     // Returns any player by index (0-based)
+	Player* GetPlayerPointer(int playerNum) const;     // Returns any player by index (0-based)
 
 	// ========== Turn Management ==========
 
@@ -55,7 +55,7 @@ public:
 	//
 	// [OPTIONAL] For 3+ players with full sorting, replace this with
 	//            SetPlayerOrder(int sortedOrder[], int count).
-	void SetFirstPlayer(int playerNum);
+	void SetCurrentPlayer(int playerNum);
 
 	// ========== Phase Management ==========
 	// All phase-transition logic belongs here.

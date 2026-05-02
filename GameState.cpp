@@ -15,7 +15,7 @@ GameState::GameState(Grid* pGrid)
 		PlayerList[i]->Draw(pOut);
 	}
 
-	currPlayerNumber = 0;
+	currentPlayerNumber = 0;
 	currentPhase = PHASE_MOVEMENT;
 	endGame = false;
 }
@@ -28,10 +28,10 @@ GameState::~GameState()
 
 Player* GameState::GetCurrentPlayer() const
 {
-	return PlayerList[currPlayerNumber];
+	return PlayerList[currentPlayerNumber];
 }
 
-Player* GameState::GetPlayer(int playerNum) const
+Player* GameState::GetPlayerPointer(int playerNum) const
 {
 	if (playerNum >= 0 && playerNum < MaxPlayerCount)
 		return PlayerList[playerNum];
@@ -40,13 +40,13 @@ Player* GameState::GetPlayer(int playerNum) const
 
 void GameState::AdvanceCurrentPlayer()
 {
-	currPlayerNumber = (currPlayerNumber + 1) % MaxPlayerCount;
+	currentPlayerNumber = (currentPlayerNumber + 1) % MaxPlayerCount;
 }
 
-void GameState::SetFirstPlayer(int playerNum)
+void GameState::SetCurrentPlayer(int playerNum)
 {
 	if (playerNum >= 0 && playerNum < MaxPlayerCount)
-		currPlayerNumber = playerNum;
+		currentPlayerNumber = playerNum;
 }
 
 PhaseType GameState::GetCurrentPhase() const
@@ -91,5 +91,5 @@ void GameState::AppendPlayersInfo(string& info) const
 		if (i < MaxPlayerCount - 1)
 			info += ", ";
 	}
-	info += " | Curr = " + to_string(currPlayerNumber);
+	info += " | Curr = " + to_string(currentPlayerNumber);
 }
