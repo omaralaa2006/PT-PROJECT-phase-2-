@@ -10,7 +10,7 @@
 #include "SwitchToPlayModeAction.h"
 #include "SwitchToDesignModeAction.h"
 ///TODO: Add #include for all action types
-#include "CopyGameObjectAction.h"
+#include"CopyGameObjectAcion.h"
 #include "CutGameObjectAction.h"
 #include "DeleteGameObjectAction.h"
 #include "AddWaterPitAction.h"
@@ -115,7 +115,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 
 	case COPY_OBJECT:
-		pAct = new CopyGameObjectAction(this);
+		pAct = new  CopyGameObjectAction(this);
 		break;
 	case CUT_OBJECT:
 		pAct = new CutGameObjectAction(this);

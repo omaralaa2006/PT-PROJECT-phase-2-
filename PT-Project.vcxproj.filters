@@ -205,9 +205,11 @@
     <ClCompile Include="AddWaterPitAction.cpp" />
     <ClCompile Include="AddWorkShopAction.cpp" />
     <ClCompile Include="DeleteGameObjectAction.cpp" />
-    <ClCompile Include="CopyGameObjectAction.cpp" />
     <ClCompile Include="CutGameObjectAction.cpp" />
     <ClCompile Include="PasteGameObjectAction.cpp" />
+    <ClCompile Include="CopyGameObjectAcion.cpp" />
+    <ClCompile Include="SaveGridAction.cpp" />
+    <ClCompile Include="LoadAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -343,9 +345,11 @@
     <ClInclude Include="AddWaterPitAction.h" />
     <ClInclude Include="AddWorkShopAction.h" />
     <ClInclude Include="DeleteGameObjectAction.h" />
-    <ClInclude Include="CopyGameObjectAction.h" />
     <ClInclude Include="CutGameObjectAction.h" />
     <ClInclude Include="PasteGameObjectAction.h" />
+    <ClInclude Include="CopyGameObjectAcion.h" />
+    <ClInclude Include="SaveGridAction.h" />
+    <ClInclude Include="LoadAction.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />

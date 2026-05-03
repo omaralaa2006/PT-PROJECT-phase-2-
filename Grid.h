@@ -80,5 +80,7 @@ public:
 
 	void PrintErrorMessage(string msg); // Shows msg on the status bar, waits for a click, then clears it
 
+	void SaveAll(ofstream& OutFile, ActionType  type);
+	void ClearGrid();
 	~Grid();
 };

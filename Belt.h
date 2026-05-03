@@ -8,11 +8,14 @@ class Belt: public GameObject
 public:
 	Belt(const CellPosition & startCellPos, const CellPosition & endCellPos); // A constructor for initialization
 	virtual void Draw(Output* pOut) const; // Draws a belt from its start cell to its end cell
-
+	
 	virtual void Apply(Grid* pGrid, GameState* pState, Player* pPlayer); // Applies the effect of the belt by moving player to belt's end cell
-
+	virtual GameObject* Clone() const;
 	CellPosition GetEndPosition() const;
 	// A getter for the endCellPos data member
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
+	virtual ActionType GetType() const;
 	virtual ~Belt();
 };
 

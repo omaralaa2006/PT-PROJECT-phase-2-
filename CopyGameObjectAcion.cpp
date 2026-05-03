@@ -1,9 +1,7 @@
-#include "CopyGameObjectAction.h"
-
+#include"CopyGameObjectAcion.h"
 #include "Input.h"
 #include "Output.h"
 #include "Grid.h"
-
 CopyGameObjectAction::CopyGameObjectAction(ApplicationManager* pApp) : Action(pApp)
 {
 }
@@ -19,7 +17,7 @@ void CopyGameObjectAction::ReadActionParameters() {
     }
 }
 void CopyGameObjectAction::Execute() {
-    ReadActionParameters(); 
+    ReadActionParameters();
 
     if (cellPos.IsValidCell()) {
         Grid* pGrid = pManager->GetGrid();
@@ -29,7 +27,7 @@ void CopyGameObjectAction::Execute() {
         Cell* pCell = pGrid->GetCell(cellPos);
 
         if (pCell != NULL) {
-            
+
             GameObject* pObj = pCell->GetGameObject();
 
             if (pObj != NULL) {

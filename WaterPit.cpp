@@ -24,8 +24,25 @@ void WaterPit::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 	// 2- Apply the water pit's effect by setting the player's health which drowned to zero and ending the game
 	// 3- Update the players info which is displayed (check Grid class and decide which function to use)
 }
+GameObject* WaterPit::Clone() const
+{
+	return new WaterPit(*this);
+}
+void WaterPit::Save(ofstream& OutFile)
+{
+	OutFile << position.GetCellNum() << endl;
+}
 
-
+void WaterPit::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition::GetCellPositionFromNum(cellNum);
+}
+ActionType WaterPit::GetType() const
+{
+	return ADD_WATER_PIT;
+}
 WaterPit::~WaterPit()
 {
 }

@@ -8,6 +8,10 @@ public:
 	virtual void Draw(Output* pOut) const; // Draws a rotating gear in a selected cell
 	virtual void Apply(Grid* pGrid, GameState* pState, Player* pPlayer); // Applies the effect of the rotating gear
 	bool GetisClockWise() const; // Getter for the direction
+	virtual GameObject* Clone() const;
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
+	virtual ActionType GetType() const;
 	virtual ~RotatingGear();
 };
 

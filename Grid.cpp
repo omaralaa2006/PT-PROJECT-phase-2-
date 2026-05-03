@@ -133,6 +133,39 @@ void Grid::PrintErrorMessage(string msg)
 	pOut->ClearStatusBar();
 }
 
+void Grid::SaveAll(ofstream& OutFile, ActionType type) {
+	// 1. Count objects of this type
+	int count = 0;
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			GameObject* pobj = CellList[i][j]->GetGameObject();
+			if (pobj != NULL && pobj->GetType() == type) {
+				count++;
+			}
+		}
+	}
+
+	// 2. Write the count to the file
+	OutFile << count << endl;
+
+	// 3. Tell each object to save itself
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			GameObject* pobj = CellList[i][j]->GetGameObject();
+			if (pobj != NULL && pobj->GetType() == type) {
+				pobj->Save(OutFile);
+			}
+		}
+	}
+}
+
+void Grid::ClearGrid() {
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			RemoveObjectFromCell(CellPosition(i, j));
+		}
+	}
+}
 
 Grid::~Grid()
 {

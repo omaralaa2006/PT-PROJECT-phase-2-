@@ -47,8 +47,26 @@ CellPosition Belt::GetEndPosition() const
 {
 	return endCellPos;
 }
+GameObject* Belt::Clone() const
+{
+	return new Belt(*this);
+}
+void Belt::Save(ofstream& OutFile)
+{
+	OutFile << position.GetCellNum() << " " << endCellPos.GetCellNum() <<endl;
+}
 
-
+void Belt::Load(ifstream& Infile)
+{
+	int start,end;
+	Infile >> start >> end;;
+	this->position = CellPosition(start);
+	this->endCellPos = CellPosition(end);
+}
+ActionType Belt::GetType() const
+{
+	return ADD_BELT;
+}
 Belt::~Belt()
 {
 }

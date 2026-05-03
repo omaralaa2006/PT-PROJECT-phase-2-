@@ -45,7 +45,25 @@ void DangerZone::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 
 }
 
+GameObject* DangerZone::Clone() const
+{
+	return new DangerZone(*this);
+}
+void DangerZone::Save(ofstream& OutFile)
+{
+	OutFile << position.GetCellNum() << endl;
+}
 
+void DangerZone::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition::GetCellPositionFromNum(cellNum);
+}
+ActionType DangerZone::GetType() const
+{
+	return ADD_DANGER_ZONE;
+}
 DangerZone::~DangerZone()
 {
 }

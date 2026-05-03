@@ -87,7 +87,27 @@ void Antenna::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 		pOut->PrintMessage(finalMsg);
 	}
 
+void Antenna::Save(ofstream& OutFile)
+{
+	OutFile << position.GetCellNum() << endl;
+}
 
+void Antenna::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition::GetCellPositionFromNum(cellNum);
+}
+
+GameObject* Antenna::Clone() const
+{
+	return new Antenna(*this);
+}
+
+ActionType Antenna::GetType() const
+{
+	return ADD_ANTENNA;
+}
 
 
 Antenna::~Antenna()

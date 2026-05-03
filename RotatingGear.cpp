@@ -26,7 +26,25 @@ bool RotatingGear::GetisClockWise() const
 {
 	return isClockWise;
 }
+GameObject* RotatingGear::Clone() const
+{
+	return new RotatingGear(*this);
+}
+void RotatingGear::Save(ofstream& OutFile)
+{
+	OutFile << position.GetCellNum() << endl;
+}
 
+void RotatingGear::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition::GetCellPositionFromNum(cellNum);
+}
+ActionType RotatingGear::GetType() const
+{
+	return ADD_ROTATINGGEAR;
+}
 RotatingGear::~RotatingGear()
 {
 }
