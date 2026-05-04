@@ -16,20 +16,17 @@ class Player
 	int health;              // Player's current health points
 
 	// ---- Saved Commands (the player's "program" for this round) ----
-	// Owned here because they are player-specific state.
-	// SelectCommandAction fills this array; Move() executes it; ClearSavedCommands() resets it.
-	Command savedCommands[MaxSavedCommands];
-	int savedCommandCount; // how many commands have been saved so far (0..MaxSavedCommands)
+	Command savedCommands[MaxSavedCommandsWithExtendedMemory];
+	int savedCommandCount;
 
 	// ---- [OPTIONAL BONUS] Shooting Phase data members ----
-	// Uncomment when adding the shooting phase (see DEFS.h PhaseType):
-	//   int laserDamage; // damage per shot (default = 1; double-laser consumable = 2)
-	//   bool isHacked;   // true = this player skips their turn this round
+	int laserDamage;
+	bool isHacked;
 
 	// ---- [OPTIONAL BONUS] Workshop Consumables data members ----
-	// Uncomment when adding consumables (see Workshop.h):
-	//   Consumable* inventory[MaxConsumables];
-	//   int inventoryCount;
+	bool hasExtendedMemory;
+	bool hasToolkit;
+	bool hasHackDevice;
 
 public:
 
@@ -46,29 +43,44 @@ public:
 	Direction GetDirection() const;
 	void      SetDirection(Direction d);
 
+	int GetPlayerNum() const;
+
+	int GetLaserDamage() const;
+	void SetLaserDamage(int damage);
+
+	bool HasExtendedMemory() const;
+	void SetExtendedMemory(bool value);
+
+	bool HasToolkit() const;
+	void SetToolkit(bool value);
+
+	bool HasHackDevice() const;
+	void SetHackDevice(bool value);
+
+	bool IsHacked() const;
+	void SetHacked(bool value);
+
+	int GetMaxSavedCommands() const;
+
 	///TODO: Add more setters/getters here as needed
 
 	// ====== Saved Commands ======
 
-	void    AddSavedCommand(Command cmd);         // Appends cmd to savedCommands (called by SelectCommandAction)
-	void    ClearSavedCommands();                 // Resets the saved-command list (call at the start of each round)
+	void    AddSavedCommand(Command cmd);
+	void    ClearSavedCommands();
 	int     GetSavedCommandCount() const;
 	Command GetSavedCommand(int index) const;
 
 	// ====== Drawing ======
 
-	void Draw(Output* pOut) const;         // Draws the player token on its current cell
-	void ClearDrawing(Output* pOut) const; // Erases the player token (restores cell colour)
+	void Draw(Output* pOut) const;
+	void ClearDrawing(Output* pOut) const;
 
 	// ====== Game Logic ======
 
 	void Move(Grid* pGrid, GameState* pState);
 
-	void AppendPlayerInfo(string& playersInfo) const; // Appends "P0(direction, health)" to the string
+	void AppendPlayerInfo(string& playersInfo) const;
 
-
-		
 	void Rotate(bool clockwise);
-
-
 };

@@ -48,6 +48,7 @@ Player* GameState::GetPlayerPointer(int playerNum) const
 void GameState::AdvanceCurrentPlayer()
 {
 	currentPlayerNumber = (currentPlayerNumber + 1) % MaxPlayerCount;
+	currentPhase = PHASE_MOVEMENT;
 	GenerateAvailableCommands();
 }
 
@@ -56,6 +57,7 @@ void GameState::SetCurrentPlayer(int playerNum)
 	if (playerNum >= 0 && playerNum < MaxPlayerCount)
 	{
 		currentPlayerNumber = playerNum;
+		currentPhase = PHASE_MOVEMENT;
 		GenerateAvailableCommands();
 	}
 }
@@ -72,7 +74,13 @@ void GameState::SetCurrentPhase(PhaseType phase)
 
 void GameState::AdvancePhase()
 {
-	currentPhase = PHASE_MOVEMENT;
+	if (currentPhase == PHASE_MOVEMENT)
+		currentPhase = PHASE_SHOOTING;
+	else
+	{
+		currentPhase = PHASE_MOVEMENT;
+		AdvanceCurrentPlayer();
+	}
 }
 
 bool GameState::GetEndGame() const
@@ -153,6 +161,71 @@ void GameState::RemoveAvailableCommand(int index)
 	availableCommands[availableCommandsCount] = NO_COMMAND;
 }
 
+bool GameState::CanShoot(Player* attacker, Player* target) const
+{
+	if (attacker == NULL || target == NULL)
+		return false;
+
+	CellPosition attackerPos = attacker->GetCell()->GetCellPosition();
+	CellPosition targetPos = target->GetCell()->GetCellPosition();
+
+	if (attackerPos.VCell() == targetPos.VCell())
+	{
+		if (attacker->GetDirection() == RIGHT && targetPos.HCell() > attackerPos.HCell())
+			return true;
+
+		if (attacker->GetDirection() == LEFT && targetPos.HCell() < attackerPos.HCell())
+			return true;
+	}
+
+	if (attackerPos.HCell() == targetPos.HCell())
+	{
+		if (attacker->GetDirection() == DOWN && targetPos.VCell() > attackerPos.VCell())
+			return true;
+
+		if (attacker->GetDirection() == UP && targetPos.VCell() < attackerPos.VCell())
+			return true;
+	}
+
+	return false;
+}
+
+void GameState::ApplyShooting(Grid* pGrid)
+{
+	if (pGrid == NULL)
+		return;
+
+	Player* attacker = GetCurrentPlayer();
+
+	if (attacker == NULL)
+		return;
+
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		Player* target = PlayerList[i];
+
+		if (target != NULL && target != attacker)
+		{
+			if (CanShoot(attacker, target))
+			{
+				target->SetHealth(target->GetHealth() - attacker->GetLaserDamage());
+
+				Output* pOut = pGrid->GetOutput();
+				Input* pIn = pGrid->GetInput();
+
+				pOut->PrintMessage("You hit another player, click to continue ...");
+
+				int x, y;
+				pIn->GetPointClicked(x, y);
+
+				pOut->ClearStatusBar();
+
+				return;
+			}
+		}
+	}
+}
+
 void GameState::DrawAllPlayers(Output* pOut) const
 {
 	for (int i = 0; i < MaxPlayerCount; i++)
@@ -173,4 +246,9 @@ void GameState::AppendPlayersInfo(string& info) const
 	}
 
 	info += " | Curr = " + to_string(currentPlayerNumber + 1);
+
+	if (currentPhase == PHASE_MOVEMENT)
+		info += " | Movement";
+	else if (currentPhase == PHASE_SHOOTING)
+		info += " | Shooting";
 }

@@ -33,6 +33,9 @@ void SelectCommandAction::Execute()
 	if (pState->GetEndGame())
 		return;
 
+	if (pState->GetCurrentPhase() != PHASE_MOVEMENT)
+		return;
+
 	ReadActionParameters();
 
 	if (selectedCommand == NO_COMMAND)
@@ -43,9 +46,7 @@ void SelectCommandAction::Execute()
 	if (pPlayer == NULL)
 		return;
 
-	int maxAllowed = (pPlayer->GetHealth() < 5) ? pPlayer->GetHealth() : 5;
-
-	if (pPlayer->GetSavedCommandCount() >= maxAllowed)
+	if (pPlayer->GetSavedCommandCount() >= pPlayer->GetMaxSavedCommands())
 		return;
 
 	pPlayer->AddSavedCommand(selectedCommand);

@@ -57,6 +57,9 @@ public:
 	int GetAvailableCommandsCount() const;
 	void RemoveAvailableCommand(int index);
 
+	bool CanShoot(Player* attacker, Player* target) const;
+	void ApplyShooting(Grid* pGrid);
+
 	void DrawAllPlayers(Output* pOut) const;
 	void AppendPlayersInfo(string& info) const;
 };
