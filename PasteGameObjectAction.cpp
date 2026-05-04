@@ -1,72 +1,82 @@
-#include "PasteGameObjectAction.h"
-#include "Input.h"
-#include "Output.h"
+#include"PasteGameObjectAction.h"
 #include "Grid.h"
-#include "GameObject.h"
+#include"CopyGameObjectAcion.h"
+#include"Output.h"
+#include"Input.h"
+#include"GameObject.h"
+#include"Antenna.h"
+#include"Flag.h"
+#include"Belt.h"
+#include"DangerZone.h"
+#include"RotatingGear.h"
+#include"WaterPit.h"
+#include"Workshop.h"
 
-PasteGameObjectAction::PasteGameObjectAction(ApplicationManager* pApp) : Action(pApp)
+PasteGameObjectAction::PasteGameObjectAction(ApplicationManager* pApp):Action(pApp)
 {
 }
 
-void PasteGameObjectAction::ReadActionParameters()
-{
-    Input* pIn = pManager->GetInput();
-    Output* pOut = pManager->GetOutput();
-
-    pOut->PrintMessage("Click on where you want to paste...");
-    cellPos = pIn->GetCellClicked();
-    if (!cellPos.IsValidCell()) {
-        pOut->PrintMessage("Error: Clicked outside the grid!");
-        cellPos = CellPosition(-1, -1);
-    }
-}
-
-void PasteGameObjectAction::Execute() {}
-/*/
-    // 1. Read parameters (the cell where the user wants to paste)
-    ReadActionParameters();
-
+void PasteGameObjectAction::ReadActionParameters() {
     Grid* pGrid = pManager->GetGrid();
     Output* pOut = pManager->GetOutput();
+    Input* pIn = pManager->GetInput();
 
-    // 2. Check if the target cell is valid
-    if (!cellPos.IsValidCell()) {
-        pOut->PrintMessage("Invalid cell! Action aborted.");
+    pOut->PrintMessage("Click on the cell where you want to paste...");
+    cellPos = pIn->GetCellClicked(); 
+    pOut->ClearStatusBar();
+}
+
+void PasteGameObjectAction::Execute() {
+    ReadActionParameters();
+    Grid* pGrid = pManager->GetGrid();
+    GameObject* pCopySource = pGrid->GetClipboard();
+    Cell* ptargetcell = pGrid->GetCell(cellPos);
+    if (pCopySource == NULL) {
+        pGrid->PrintErrorMessage("Error: Clipboard is empty! Copy something first.");
         return;
     }
 
-    // 3. Get the clipboard
-    GameObject* pClipboard = pGrid->GetClipboard();
-    if (pClipboard == nullptr) {
-        pOut->PrintMessage("Clipboard is empty! Copy an object first.");
+    // Check if the destination cell is already occupied
+    if (ptargetcell->GetGameObject() != NULL) {
+        pGrid->PrintErrorMessage("Error: Destination cell is occupied!");
         return;
     }
+    GameObject* pClipboardObj = pGrid->GetClipboard();
+    ActionType type = pClipboardObj->GetType();
+    GameObject* pNewObj = NULL;
 
-    // 4. Check if the cell is already occupied (optional but recommended)
-    if (pGrid->GetGameObject(cellPos) != nullptr) {
-        pOut->PrintMessage("Cell is already occupied!");
-        return;
+    if (type == SET_FLAG_CELL) {
+        pNewObj = new Flag(cellPos);
     }
-
-    // 5. Create a copy of the object from the clipboard
-    // IMPORTANT: You need a virtual 'Copy' function in your GameObject class
-    // that returns a new instance of the same type.
-    GameObject* pNewObj = pClipboard->Copy();
-
-    // 6. Set the position of the new object to the target cell
-    pNewObj->SetPosition(cellPos);
-
-    // 7. Add the new object to the grid
-    if (pGrid->AddObject(pNewObj)) {
-        // 8. Draw the object
-        pNewObj->Draw(pOut);
-        pOut->PrintMessage("Object pasted successfully.");
+    else if (type == ADD_ROTATINGGEAR) {
+        RotatingGear* pOldGear = dynamic_cast<RotatingGear*>(pClipboardObj);
+        bool dir = pOldGear->GetisClockWise();
+        pNewObj = new RotatingGear(cellPos, dir);
     }
-    else {
-        pOut->PrintMessage("Error: Could not add object to grid.");
-        delete pNewObj; // Cleanup if adding fails
+    else if (type == ADD_BELT)
+    {
+        Belt* pOldBelt = dynamic_cast<Belt*>(pClipboardObj);
+        CellPosition endPos = pOldBelt->GetEndPosition();
+        pNewObj = new Belt(cellPos, endPos);
     }
-}*/
+    else if (type == ADD_ANTENNA) {
+        pNewObj = new Antenna(cellPos);
+    }
+    else if (type == ADD_DANGER_ZONE) {
+        pNewObj = new DangerZone(cellPos);
+    }
+    else if (type == ADD_WATER_PIT) {
+        pNewObj = new WaterPit(cellPos);
+    }
+    else if (type == ADD_WORKSHOP) {
+        pNewObj = new Workshop(cellPos);
+    }
+    if (pNewObj != NULL) {
+        pGrid->AddObjectToCell(pNewObj);
+
+    }
+}
+
 PasteGameObjectAction::~PasteGameObjectAction()
 {
 }
