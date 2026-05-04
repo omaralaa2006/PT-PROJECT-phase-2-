@@ -21,6 +21,9 @@ void ExecuteCommandsAction::Execute()
 	Grid* pGrid = pManager->GetGrid();
 	GameState* pState = pManager->GetGameState();
 
+	if (pState->GetEndGame())
+		return;
+
 	Player* pPlayer = pState->GetCurrentPlayer();
 
 	if (pPlayer == NULL)
@@ -28,7 +31,8 @@ void ExecuteCommandsAction::Execute()
 
 	pPlayer->Move(pGrid, pState);
 
-	pState->AdvanceCurrentPlayer();
+	if (!pState->GetEndGame())
+		pState->AdvanceCurrentPlayer();
 
 	pManager->UpdateInterface();
 }

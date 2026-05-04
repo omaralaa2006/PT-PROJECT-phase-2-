@@ -28,14 +28,17 @@ void SelectCommandAction::ReadActionParameters()
 
 void SelectCommandAction::Execute()
 {
+	GameState* pState = pManager->GetGameState();
+
+	if (pState->GetEndGame())
+		return;
+
 	ReadActionParameters();
 
 	if (selectedCommand == NO_COMMAND)
 		return;
 
-	GameState* pState = pManager->GetGameState();
 	Player* pPlayer = pState->GetCurrentPlayer();
-	Output* pOut = pManager->GetGrid()->GetOutput();
 
 	if (pPlayer == NULL)
 		return;
@@ -43,10 +46,7 @@ void SelectCommandAction::Execute()
 	int maxAllowed = (pPlayer->GetHealth() < 5) ? pPlayer->GetHealth() : 5;
 
 	if (pPlayer->GetSavedCommandCount() >= maxAllowed)
-	{
-		pOut->PrintMessage("You reached max commands");
 		return;
-	}
 
 	pPlayer->AddSavedCommand(selectedCommand);
 
