@@ -16,7 +16,6 @@ void SelectCommandAction::ReadActionParameters()
 {
 	Grid* pGrid = pManager->GetGrid();
 	Input* pIn = pGrid->GetInput();
-	Output* pOut = pGrid->GetOutput();
 
 	int index = pIn->GetSelectedCommandIndex();
 
@@ -25,8 +24,16 @@ void SelectCommandAction::ReadActionParameters()
 	else if (index == 1)
 		selectedCommand = MOVE_BACKWARD_ONE_STEP;
 	else if (index == 2)
-		selectedCommand = ROTATE_CLOCKWISE;
+		selectedCommand = MOVE_FORWARD_TWO_STEPS;
 	else if (index == 3)
+		selectedCommand = MOVE_BACKWARD_TWO_STEPS;
+	else if (index == 4)
+		selectedCommand = MOVE_FORWARD_THREE_STEPS;
+	else if (index == 5)
+		selectedCommand = MOVE_BACKWARD_THREE_STEPS;
+	else if (index == 6)
+		selectedCommand = ROTATE_CLOCKWISE;
+	else if (index == 7)
 		selectedCommand = ROTATE_COUNTERCLOCKWISE;
 	else
 		selectedCommand = NO_COMMAND;
@@ -41,6 +48,9 @@ void SelectCommandAction::Execute()
 
 	GameState* pState = pManager->GetGameState();
 	Player* pPlayer = pState->GetCurrentPlayer();
+
+	if (pPlayer == NULL)
+		return;
 
 	pPlayer->AddSavedCommand(selectedCommand);
 }

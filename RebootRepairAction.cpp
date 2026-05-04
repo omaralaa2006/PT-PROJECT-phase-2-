@@ -12,6 +12,7 @@ RebootRepairAction::RebootRepairAction(ApplicationManager* pApp)
 
 void RebootRepairAction::ReadActionParameters()
 {
+
 }
 
 void RebootRepairAction::Execute()
@@ -24,9 +25,10 @@ void RebootRepairAction::Execute()
 
 	Player* pPlayer = pState->GetCurrentPlayer();
 
-	int health = pPlayer->GetHealth();
-	pPlayer->SetHealth(health + 2);
+	if (pPlayer == NULL)
+		return;
 
+	pPlayer->SetHealth(pPlayer->GetHealth() + 2);
 	pPlayer->ClearSavedCommands();
 
 	pState->AdvanceCurrentPlayer();

@@ -49,7 +49,9 @@ void Player::SetDirection(Direction d)
 
 void Player::AddSavedCommand(Command cmd)
 {
-	if (savedCommandCount < MaxSavedCommands)
+	int maxAllowed = (health < 5) ? health : 5;
+
+	if (savedCommandCount < maxAllowed)
 		savedCommands[savedCommandCount++] = cmd;
 }
 
@@ -163,6 +165,11 @@ void Player::Move(Grid* pGrid, GameState* pState)
 					pGrid->UpdatePlayerCell(this, newPos);
 			}
 		}
+
+		GameObject* pObj = pCell->GetGameObject();
+
+		if (pObj != NULL)
+			pObj->Apply(pGrid, pState, this);
 	}
 
 	ClearSavedCommands();

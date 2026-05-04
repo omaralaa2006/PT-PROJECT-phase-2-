@@ -11,6 +11,7 @@ ExecuteCommandsAction::ExecuteCommandsAction(ApplicationManager* pApp)
 
 void ExecuteCommandsAction::ReadActionParameters()
 {
+
 }
 
 void ExecuteCommandsAction::Execute()
@@ -21,6 +22,9 @@ void ExecuteCommandsAction::Execute()
 	GameState* pState = pManager->GetGameState();
 
 	Player* pPlayer = pState->GetCurrentPlayer();
+
+	if (pPlayer == NULL)
+		return;
 
 	pPlayer->Move(pGrid, pState);
 

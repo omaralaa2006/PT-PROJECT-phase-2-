@@ -35,7 +35,8 @@ Player* GameState::GetPlayerPointer(int playerNum) const
 {
 	if (playerNum >= 0 && playerNum < MaxPlayerCount)
 		return PlayerList[playerNum];
-	return nullptr;
+
+	return NULL;
 }
 
 void GameState::AdvanceCurrentPlayer()
@@ -78,7 +79,7 @@ void GameState::DrawAllPlayers(Output* pOut) const
 {
 	for (int i = 0; i < MaxPlayerCount; i++)
 	{
-		if (PlayerList[i])
+		if (PlayerList[i] != NULL)
 			PlayerList[i]->Draw(pOut);
 	}
 }
@@ -88,8 +89,10 @@ void GameState::AppendPlayersInfo(string& info) const
 	for (int i = 0; i < MaxPlayerCount; i++)
 	{
 		PlayerList[i]->AppendPlayerInfo(info);
+
 		if (i < MaxPlayerCount - 1)
 			info += ", ";
 	}
-	info += " | Curr = " + to_string(currentPlayerNumber);
+
+	info += " | Curr = " + to_string(currentPlayerNumber + 1);
 }
