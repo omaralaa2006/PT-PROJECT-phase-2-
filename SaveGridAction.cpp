@@ -18,12 +18,11 @@ void SaveGridAction::Execute() {
     if (OutFile.is_open()) {
         Grid* pGrid = pManager->GetGrid();
         pGrid->SaveAll(OutFile, SET_FLAG_CELL);
-        pGrid->SaveAll(OutFile, ADD_WATER_PIT);
         pGrid->SaveAll(OutFile, ADD_BELT);
         pGrid->SaveAll(OutFile, ADD_ANTENNA);
         pGrid->SaveAll(OutFile, ADD_DANGER_ZONE);
-        pGrid->SaveAll(OutFile, ADD_WORKSHOP);
         pGrid->SaveAll(OutFile, ADD_ROTATINGGEAR);
+        pGrid->SaveAll(OutFile, ADD_WATER_PIT);
         pGrid->SaveAll(OutFile,ADD_WORKSHOP);
         OutFile.close();
         pManager->GetOutput()->PrintMessage("Design saved");
