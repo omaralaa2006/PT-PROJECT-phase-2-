@@ -31,6 +31,7 @@ class GameState;
 // ============================================================
 class Grid
 {
+	bool endGame;
 	Output* pOut;  // Pointer to the Output object
 	Input*  pIn;   // Pointer to the Input object
 
@@ -82,5 +83,7 @@ public:
 
 	void SaveAll(ofstream& OutFile, ActionType  type);
 	void ClearGrid();
+	void SetEndGame(bool end);
+	bool GetEndGame() const;
 	~Grid();
 };

@@ -11,7 +11,19 @@ void Flag::Draw(Output* pOut) const
 
 void Flag::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
+	Output* pOut = pGrid->GetOutput();
+	Input* pIn = pGrid->GetInput();
 
+	
+	pOut->PrintMessage("You have reached a flag. CONGRATULATIONS! Click to continue ...");
+	int x, y;
+	pIn->GetPointClicked(x, y);
+
+	
+	pGrid->SetEndGame(true);
+
+	
+	pOut->ClearStatusBar();
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
 	// == Here are some guideline steps (numbered below) to implement this function ==
 

@@ -167,6 +167,16 @@ void Grid::ClearGrid() {
 	}
 }
 
+void Grid::SetEndGame(bool end)
+{
+	endGame = end;
+}
+
+bool Grid::GetEndGame() const
+{
+	return endGame;
+}
+
 Grid::~Grid()
 {
 	delete pIn;
