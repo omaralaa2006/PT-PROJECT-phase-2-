@@ -30,6 +30,9 @@ class GameState
 	PhaseType currentPhase;
 	bool endGame;
 
+	Command availableCommands[MaxAvailableCommands];
+	int availableCommandsCount;
+
 public:
 
 	GameState(Grid* pGrid);
@@ -48,6 +51,11 @@ public:
 
 	bool GetEndGame() const;
 	void SetEndGame(bool end);
+
+	void GenerateAvailableCommands();
+	Command GetAvailableCommand(int index) const;
+	int GetAvailableCommandsCount() const;
+	void RemoveAvailableCommand(int index);
 
 	void DrawAllPlayers(Output* pOut) const;
 	void AppendPlayersInfo(string& info) const;

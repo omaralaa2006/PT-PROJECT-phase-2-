@@ -8,7 +8,6 @@
 
 Grid::Grid(Input* pIn, Output* pOut) : pIn(pIn), pOut(pOut)
 {
-	// Allocate every Cell on the board (bottom-up so cell numbers are assigned correctly)
 	for (int i = NumVerticalCells - 1; i >= 0; i--)
 		for (int j = 0; j < NumHorizontalCells; j++)
 			CellList[i][j] = new Cell(i, j);
@@ -26,7 +25,7 @@ bool Grid::AddObjectToCell(GameObject* pNewObject)
 	if (pos.IsValidCell())
 	{
 		GameObject* pPrevObject = CellList[pos.VCell()][pos.HCell()]->GetGameObject();
-		if (pPrevObject) // cell already has an object
+		if (pPrevObject)
 			return false;
 
 		CellList[pos.VCell()][pos.HCell()]->SetGameObject(pNewObject);
@@ -56,37 +55,37 @@ void Grid::UpdatePlayerCell(Player* player, const CellPosition& newPosition)
 
 Belt* Grid::GetNextBelt(const CellPosition& position)
 {
-	int startH = position.HCell(); // represents the start hCell in the current row to search for the belt in
-	for (int i = position.VCell(); i >= 0; i--) // searching from position.vCell and ABOVE
+	int startH = position.HCell();
+	for (int i = position.VCell(); i >= 0; i--)
 	{
-		for (int j = startH; j < NumHorizontalCells; j++) // searching from startH and RIGHT
+		for (int j = startH; j < NumHorizontalCells; j++)
 		{
 			///TODO: Check if CellList[i][j] has a belt, if yes return it
 		}
-		startH = 0; // because in the next above rows, we will search from the first left cell (hCell = 0) to the right
+		startH = 0;
 	}
-	return NULL; // not found
+	return NULL;
 }
 
 
 // ========== Setters / Getters ==========
 
 
-Input* Grid::GetInput() const  { return pIn; }
+Input* Grid::GetInput() const { return pIn; }
 Output* Grid::GetOutput() const { return pOut; }
 
-void Grid::SetClipboard(GameObject* gameObject) { Clipboard = gameObject; } // to be used in copy/cut
-GameObject* Grid::GetClipboard() const          { return Clipboard; }       // to be used in paste
+void Grid::SetClipboard(GameObject* gameObject) { Clipboard = gameObject; }
+GameObject* Grid::GetClipboard() const { return Clipboard; }
 
 Cell* Grid::GetStartCell() const
 {
-	// Players start at the bottom-left cell of the board
 	return CellList[NumVerticalCells - 1][0];
 }
-Cell* Grid::GetCell(const CellPosition& pos) const {
-	
-	if (pos.IsValidCell()) {
-		
+
+Cell* Grid::GetCell(const CellPosition& pos) const
+{
+	if (pos.IsValidCell())
+	{
 		return CellList[pos.VCell()][pos.HCell()];
 	}
 
@@ -100,28 +99,53 @@ void Grid::UpdateInterface(const GameState* pState) const
 {
 	if (UI.InterfaceMode == MODE_DESIGN)
 	{
-		// 1- Draw every cell (background colour, water pits, danger zones)
 		for (int i = NumVerticalCells - 1; i >= 0; i--)
 			for (int j = 0; j < NumHorizontalCells; j++)
 				CellList[i][j]->DrawCellOrWaterPitOrDangerZone(pOut);
 
-		// 2- Draw other game objects on top (belts, flags, gears, etc.)
 		for (int i = NumVerticalCells - 1; i >= 0; i--)
 			for (int j = 0; j < NumHorizontalCells; j++)
 				CellList[i][j]->DrawGameObject(pOut);
 
-		// 3- Draw all player tokens (delegated to GameState -- Grid does not own players)
 		pState->DrawAllPlayers(pOut);
 	}
 	else // Play mode
 	{
-		// Print the players info bar on the right side of the toolbar.
-		// GameState builds the string because it owns the player data.
+		for (int i = NumVerticalCells - 1; i >= 0; i--)
+			for (int j = 0; j < NumHorizontalCells; j++)
+				CellList[i][j]->DrawCellOrWaterPitOrDangerZone(pOut);
+
+		for (int i = NumVerticalCells - 1; i >= 0; i--)
+			for (int j = 0; j < NumHorizontalCells; j++)
+				CellList[i][j]->DrawGameObject(pOut);
+
+		pState->DrawAllPlayers(pOut);
+
 		string playersInfo = "";
 		pState->AppendPlayersInfo(playersInfo);
 		pOut->PrintPlayersInfo(playersInfo);
 
-		// Note: UpdatePlayerCell() already redraws players step-by-step during Play mode.
+		Player* pPlayer = pState->GetCurrentPlayer();
+
+		Command saved[MaxSavedCommands];
+		int savedCount = pPlayer->GetSavedCommandCount();
+
+		for (int i = 0; i < MaxSavedCommands; i++)
+		{
+			if (i < savedCount)
+				saved[i] = pPlayer->GetSavedCommand(i);
+			else
+				saved[i] = NO_COMMAND;
+		}
+
+		int availableCount = pState->GetAvailableCommandsCount();
+
+		Command available[MaxAvailableCommands];
+
+		for (int i = 0; i < availableCount; i++)
+			available[i] = pState->GetAvailableCommand(i);
+
+		pOut->CreateCommandsBar(saved, MaxSavedCommands, available, availableCount);
 	}
 }
 
@@ -133,35 +157,42 @@ void Grid::PrintErrorMessage(string msg)
 	pOut->ClearStatusBar();
 }
 
-void Grid::SaveAll(ofstream& OutFile, ActionType type) {
-	// 1. Count objects of this type
+void Grid::SaveAll(ofstream& OutFile, ActionType type)
+{
 	int count = 0;
-	for (int i = 0; i < NumVerticalCells; i++) {
-		for (int j = 0; j < NumHorizontalCells; j++) {
+	for (int i = 0; i < NumVerticalCells; i++)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
 			GameObject* pobj = CellList[i][j]->GetGameObject();
-			if (pobj != NULL && pobj->GetType() == type) {
+			if (pobj != NULL && pobj->GetType() == type)
+			{
 				count++;
 			}
 		}
 	}
 
-	// 2. Write the count to the file
 	OutFile << count << endl;
 
-	// 3. Tell each object to save itself
-	for (int i = 0; i < NumVerticalCells; i++) {
-		for (int j = 0; j < NumHorizontalCells; j++) {
+	for (int i = 0; i < NumVerticalCells; i++)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
 			GameObject* pobj = CellList[i][j]->GetGameObject();
-			if (pobj != NULL && pobj->GetType() == type) {
+			if (pobj != NULL && pobj->GetType() == type)
+			{
 				pobj->Save(OutFile);
 			}
 		}
 	}
 }
 
-void Grid::ClearGrid() {
-	for (int i = 0; i < NumVerticalCells; i++) {
-		for (int j = 0; j < NumHorizontalCells; j++) {
+void Grid::ClearGrid()
+{
+	for (int i = 0; i < NumVerticalCells; i++)
+	{
+		for (int j = 0; j < NumHorizontalCells; j++)
+		{
 			RemoveObjectFromCell(CellPosition(i, j));
 		}
 	}
@@ -185,6 +216,4 @@ Grid::~Grid()
 	for (int i = NumVerticalCells - 1; i >= 0; i--)
 		for (int j = 0; j < NumHorizontalCells; j++)
 			delete CellList[i][j];
-
-	// Players are owned by GameState -- do NOT delete them here.
 }

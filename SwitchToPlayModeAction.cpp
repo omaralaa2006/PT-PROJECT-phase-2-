@@ -25,7 +25,13 @@ void SwitchToPlayModeAction::Execute()
 
 	pOut->CreatePlayModeToolBar();
 
-	Command saved[MaxSavedCommands] = { NO_COMMAND };
+	Command saved[MaxSavedCommands] = {
+		NO_COMMAND,
+		NO_COMMAND,
+		NO_COMMAND,
+		NO_COMMAND,
+		NO_COMMAND
+	};
 
 	Command available[8] = {
 		MOVE_FORWARD_ONE_STEP,
@@ -38,7 +44,7 @@ void SwitchToPlayModeAction::Execute()
 		ROTATE_COUNTERCLOCKWISE
 	};
 
-	pOut->CreateCommandsBar(saved, 0, available, 8);
+	pOut->CreateCommandsBar(saved, MaxSavedCommands, available, 8);
 
 	pState->SetCurrentPhase(PHASE_MOVEMENT);
 

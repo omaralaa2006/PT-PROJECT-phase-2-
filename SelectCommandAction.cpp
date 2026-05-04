@@ -16,27 +16,14 @@ void SelectCommandAction::ReadActionParameters()
 {
 	Grid* pGrid = pManager->GetGrid();
 	Input* pIn = pGrid->GetInput();
+	GameState* pState = pManager->GetGameState();
 
 	int index = pIn->GetSelectedCommandIndex();
 
-	if (index == 0)
-		selectedCommand = MOVE_FORWARD_ONE_STEP;
-	else if (index == 1)
-		selectedCommand = MOVE_BACKWARD_ONE_STEP;
-	else if (index == 2)
-		selectedCommand = MOVE_FORWARD_TWO_STEPS;
-	else if (index == 3)
-		selectedCommand = MOVE_BACKWARD_TWO_STEPS;
-	else if (index == 4)
-		selectedCommand = MOVE_FORWARD_THREE_STEPS;
-	else if (index == 5)
-		selectedCommand = MOVE_BACKWARD_THREE_STEPS;
-	else if (index == 6)
-		selectedCommand = ROTATE_CLOCKWISE;
-	else if (index == 7)
-		selectedCommand = ROTATE_COUNTERCLOCKWISE;
-	else
-		selectedCommand = NO_COMMAND;
+	selectedCommand = pState->GetAvailableCommand(index);
+
+	if (selectedCommand != NO_COMMAND)
+		pState->RemoveAvailableCommand(index);
 }
 
 void SelectCommandAction::Execute()
@@ -48,11 +35,22 @@ void SelectCommandAction::Execute()
 
 	GameState* pState = pManager->GetGameState();
 	Player* pPlayer = pState->GetCurrentPlayer();
+	Output* pOut = pManager->GetGrid()->GetOutput();
 
 	if (pPlayer == NULL)
 		return;
 
+	int maxAllowed = (pPlayer->GetHealth() < 5) ? pPlayer->GetHealth() : 5;
+
+	if (pPlayer->GetSavedCommandCount() >= maxAllowed)
+	{
+		pOut->PrintMessage("You reached max commands");
+		return;
+	}
+
 	pPlayer->AddSavedCommand(selectedCommand);
+
+	pManager->UpdateInterface();
 }
 
 SelectCommandAction::~SelectCommandAction()
