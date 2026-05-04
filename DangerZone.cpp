@@ -49,9 +49,11 @@ GameObject* DangerZone::Clone() const
 {
 	return new DangerZone(*this);
 }
-void DangerZone::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << endl;
+
+void DangerZone::Save(ofstream& OutFile, ActionType type) {
+	if (type == ADD_DANGER_ZONE) {
+		OutFile << position.GetCellNum() << endl;
+	}
 }
 
 void DangerZone::Load(ifstream& Infile)

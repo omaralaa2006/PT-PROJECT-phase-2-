@@ -29,7 +29,11 @@ void AddBeltAction::ReadActionParameters()
 		pOut->PrintMessage("Error!invalid postion.");
 		startPos = CellPosition(-1, -1);
 	}
-
+	if (startPos.GetCellNum() == endPos.GetCellNum())
+	{
+		pOut->PrintMessage("Error! you mast choose two diffrent cells to make a belt");
+		startPos = CellPosition(-1, -1);
+	}
 
 	// Clear messages
 	pOut->ClearStatusBar();
@@ -53,7 +57,15 @@ void AddBeltAction::Execute()
 	if (!added)
 	{
 		// Print an appropriate message
-		pGrid->PrintErrorMessage("Error: Cell already has an object ! Click to continue ...");
+		if (!startPos.IsValidCell() || !endPos.IsValidCell() || startPos.GetCellNum() == 1 || startPos.GetCellNum() == 55 || endPos.GetCellNum() == 1 || endPos.GetCellNum() == 55)
+		{
+			Output* pOut = pGrid->GetOutput();
+			pOut->PrintMessage("Error!invalid postion.");
+		}
+		else {
+			pGrid->PrintErrorMessage("Error: Cell already has an object ! Click to continue ...");
+		}
+
 	}
 	// Here, the belt is created and added to the GameObject of its Cell, so we finished executing the AddBeltAction
 

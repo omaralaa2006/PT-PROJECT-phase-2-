@@ -13,7 +13,7 @@ public:
 	virtual GameObject* Clone() const;
 	CellPosition GetEndPosition() const;
 	// A getter for the endCellPos data member
-	virtual void Save(ofstream& OutFile);
+	virtual void Save(ofstream& OutFile, ActionType type);	
 	virtual void Load(ifstream& Infile);
 	virtual ActionType GetType() const;
 	virtual ~Belt();

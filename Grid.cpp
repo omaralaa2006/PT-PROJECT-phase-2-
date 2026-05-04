@@ -157,32 +157,25 @@ void Grid::PrintErrorMessage(string msg)
 	pOut->ClearStatusBar();
 }
 
-void Grid::SaveAll(ofstream& OutFile, ActionType type)
-{
+void Grid::SaveAll(ofstream& OutFile, ActionType type) {
 	int count = 0;
-	for (int i = 0; i < NumVerticalCells; i++)
-	{
-		for (int j = 0; j < NumHorizontalCells; j++)
-		{
-			GameObject* pobj = CellList[i][j]->GetGameObject();
-			if (pobj != NULL && pobj->GetType() == type)
-			{
-				count++;
-			}
+	// Pass 1: Count objects of this specific type
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			GameObject* pObj = CellList[i][j]->GetGameObject();
+			// You might need a GetType function or just check if it's not NULL
+			if (pObj != NULL && pObj->GetType() == type) count++;
 		}
 	}
 
-	OutFile << count << endl;
+	OutFile << count << endl; // Write the number of objects (n1, n2, etc.)
 
-	for (int i = 0; i < NumVerticalCells; i++)
-	{
-		for (int j = 0; j < NumHorizontalCells; j++)
-		{
-			GameObject* pobj = CellList[i][j]->GetGameObject();
-			if (pobj != NULL && pobj->GetType() == type)
-			{
-				pobj->Save(OutFile);
-			}
+	// Pass 2: Tell every object to try and save
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			GameObject* pObj = CellList[i][j]->GetGameObject();
+			if (pObj != NULL)
+				pObj->Save(OutFile, type); // Polymorphism at work!
 		}
 	}
 }

@@ -31,7 +31,14 @@ void AddWaterPitAction::Execute() {
          bool added = pGrid->AddObjectToCell(pPit);
 
         if (!added) {
-            pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            if (!pitPos.IsValidCell() || pitPos.GetCellNum() == 1 || pitPos.GetCellNum() == 55)
+            {
+                Output* pOut = pManager->GetOutput();
+                pOut->PrintMessage("Error: Invalid cell position.");
+            }
+            else {
+                pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            }
             delete pPit;
         }
         else {

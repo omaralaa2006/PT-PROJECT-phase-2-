@@ -50,7 +50,14 @@ void AddRotatingGearAction::Execute()
 	
 		if (!pGrid->AddObjectToCell(pGear))
 		{
-			pOut->PrintMessage("Error!Cell alredy occupied!");
+			if (!gearPos.IsValidCell() || gearPos.GetCellNum() == 1 || gearPos.GetCellNum() == 55)
+			{
+				Output* pOut = pManager->GetOutput();
+				pOut->PrintMessage("Error ! invalid cell position.");
+			}
+			else {
+				pOut->PrintMessage("Error!Cell alredy occupied!");
+			}
 			delete pGear;
 		}
 	}

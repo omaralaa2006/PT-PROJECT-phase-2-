@@ -36,9 +36,11 @@ GameObject* Flag::Clone() const
 {
 	return new Flag(*this);
 }
-void Flag::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << endl;
+
+void Flag::Save(ofstream& OutFile, ActionType type) {
+	if (type == SET_FLAG_CELL) {
+		OutFile << position.GetCellNum() << endl;
+	}
 }
 
 void Flag::Load(ifstream& Infile)

@@ -34,9 +34,11 @@ GameObject* Workshop::Clone() const
 {
 	return new Workshop(*this);
 }
-void Workshop::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << endl;
+
+void Workshop::Save(ofstream& OutFile, ActionType type) {
+	if (type == ADD_WORKSHOP) {
+		OutFile << position.GetCellNum() << endl;
+	}
 }
 
 void Workshop::Load(ifstream& Infile)

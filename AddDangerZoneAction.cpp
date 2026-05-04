@@ -31,7 +31,14 @@ void AddDangerZoneAction::Execute() {
         bool added = pGrid->AddObjectToCell(pZone);
         if (!added) 
         {
-            pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            if (!zonePos.IsValidCell() || zonePos.GetCellNum() == 1 || zonePos.GetCellNum() == 55)
+            {
+                Output* pOut = pManager->GetOutput();
+                pOut->PrintMessage("Error: Invalid cell position.");
+            }
+            else {
+                pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            }
             delete pZone; 
         }
         else 
