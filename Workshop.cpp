@@ -1,5 +1,5 @@
 #include "Workshop.h"
-
+#include"Player.h"
 
 
 Workshop::Workshop(const CellPosition & workshopPosition):GameObject( workshopPosition)
@@ -15,6 +15,17 @@ void Workshop::Draw(Output * pOut) const
 
 void Workshop::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
+	Output* pOut = pGrid->GetOutput();
+	Input* pIn = pGrid->GetInput();
+
+	
+	pOut->PrintMessage("Welcome to the Workshop! Your health will be restored. Click to continue...");
+	int x, y;
+	pIn->GetPointClicked(x, y);
+
+	
+	int maxHealth = 10;
+	pPlayer->SetHealth(maxHealth);
 	///TODO: Implement this function
 	// Apply the workshop's effect on the player
 	// [OPTIONAL BONUS] Consumables can be given to the player here
