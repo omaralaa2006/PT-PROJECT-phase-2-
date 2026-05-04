@@ -98,31 +98,19 @@ void Player::Move(Grid* pGrid, GameState* pState)
 	if (!pGrid || !pState || !pCell)
 		return;
 
+	bool reachedWorkshop = false;
+
 	for (int i = 0; i < savedCommandCount; i++)
 	{
 		Command cmd = savedCommands[i];
 
 		if (cmd == ROTATE_CLOCKWISE)
 		{
-			if (currDirection == UP)
-				currDirection = RIGHT;
-			else if (currDirection == RIGHT)
-				currDirection = DOWN;
-			else if (currDirection == DOWN)
-				currDirection = LEFT;
-			else if (currDirection == LEFT)
-				currDirection = UP;
+			Rotate(true);
 		}
 		else if (cmd == ROTATE_COUNTERCLOCKWISE)
 		{
-			if (currDirection == UP)
-				currDirection = LEFT;
-			else if (currDirection == LEFT)
-				currDirection = DOWN;
-			else if (currDirection == DOWN)
-				currDirection = RIGHT;
-			else if (currDirection == RIGHT)
-				currDirection = UP;
+			Rotate(false);
 		}
 		else
 		{
@@ -169,6 +157,19 @@ void Player::Move(Grid* pGrid, GameState* pState)
 		GameObject* pObj = pCell->GetGameObject();
 
 		if (pObj != NULL)
+		{
+			if (pCell->HasWorkShop() != NULL)
+				reachedWorkshop = true;
+			else
+				pObj->Apply(pGrid, pState, this);
+		}
+	}
+
+	if (reachedWorkshop && pCell->HasWorkShop() != NULL)
+	{
+		GameObject* pObj = pCell->GetGameObject();
+
+		if (pObj != NULL)
 			pObj->Apply(pGrid, pState, this);
 	}
 
@@ -191,7 +192,7 @@ void Player::Rotate(bool clockwise)
 		else if (currDirection == DOWN) currDirection = LEFT;
 		else if (currDirection == LEFT) currDirection = UP;
 	}
-	else 
+	else
 	{
 		if (currDirection == UP) currDirection = LEFT;
 		else if (currDirection == LEFT) currDirection = DOWN;
