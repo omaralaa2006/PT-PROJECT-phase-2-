@@ -1,5 +1,5 @@
 #include "RotatingGear.h"
-
+#include"Player.h"
 
 
 
@@ -15,6 +15,31 @@ void RotatingGear::Draw(Output* pOut) const
 
 void RotatingGear::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
+	Output* pOut = pGrid->GetOutput();
+	Input* pIn = pGrid->GetInput();
+
+	
+	if (isClockWise == true)
+	{
+		pOut->PrintMessage("Rotating clockwise... Click to continue");
+	}
+	else
+	{
+		pOut->PrintMessage("Rotating anti-clockwise... Click to continue");
+	}
+
+	
+	int x, y;
+	pIn->GetPointClicked(x, y);
+
+	
+	pPlayer->Rotate(isClockWise);
+
+	
+	pGrid->UpdateInterface(pState);
+
+	
+	pOut->ClearStatusBar();
 
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
 	// == Here are some guideline steps (numbered below) to implement this function ==

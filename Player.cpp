@@ -181,3 +181,21 @@ void Player::AppendPlayerInfo(string& playersInfo) const
 	playersInfo += to_string(currDirection) + ", ";
 	playersInfo += to_string(health) + ")";
 }
+
+void Player::Rotate(bool clockwise)
+{
+	if (clockwise)
+	{
+		if (currDirection == UP) currDirection = RIGHT;
+		else if (currDirection == RIGHT) currDirection = DOWN;
+		else if (currDirection == DOWN) currDirection = LEFT;
+		else if (currDirection == LEFT) currDirection = UP;
+	}
+	else 
+	{
+		if (currDirection == UP) currDirection = LEFT;
+		else if (currDirection == LEFT) currDirection = DOWN;
+		else if (currDirection == DOWN) currDirection = RIGHT;
+		else if (currDirection == RIGHT) currDirection = UP;
+	}
+}

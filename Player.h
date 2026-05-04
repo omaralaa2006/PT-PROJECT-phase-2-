@@ -65,4 +65,10 @@ public:
 	void Move(Grid* pGrid, GameState* pState);
 
 	void AppendPlayerInfo(string& playersInfo) const; // Appends "P0(direction, health)" to the string
+
+
+		
+	void Rotate(bool clockwise);
+
+
 };
