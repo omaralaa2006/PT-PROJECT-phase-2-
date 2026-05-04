@@ -18,7 +18,8 @@
 #include "AddDangerZoneAction.h"
 #include "AddWorkShopAction.h"
 #include "PasteGameObjectAction.h"
-
+#include "SaveGridAction.h"
+#include"LoadAction.h"
 #include "GameState.h"
 
 ApplicationManager::ApplicationManager()
@@ -111,7 +112,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case PASTE_OBJECT:
 		pAct = new PasteGameObjectAction(this);
 		break;
-
+    case SAVE_GRID:
+		pAct = new SaveGridAction(this);
+		break;
+    case LOAD_GRID:
+		pAct = new LoadAction(this);
+		break;
 	case NEW_GAME:
 		pAct = new NewGameAction(this);
 		break;
@@ -134,7 +140,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case REBOOT_REPAIR:
 		pAct = new RebootRepairAction(this); // added case yargoola
 		break;
-
+    
 	case STATUS:
 		return;
 	}

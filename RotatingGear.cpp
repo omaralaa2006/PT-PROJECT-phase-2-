@@ -57,14 +57,17 @@ GameObject* RotatingGear::Clone() const
 }
 void RotatingGear::Save(ofstream& OutFile)
 {
-	OutFile << position.GetCellNum() << endl;
+	OutFile << position.GetCellNum() << " ";
+	OutFile << (isClockWise ? 1 : 0) << endl;
 }
 
 void RotatingGear::Load(ifstream& Infile)
 {
 	int cellNum;
-	Infile >> cellNum;
-	position = CellPosition::GetCellPositionFromNum(cellNum);
+	int dir;
+	Infile >> cellNum >> dir;
+	this->position = CellPosition::GetCellPositionFromNum(cellNum);
+	this->isClockWise = (dir == 1);
 }
 ActionType RotatingGear::GetType() const
 {
