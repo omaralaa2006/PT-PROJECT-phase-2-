@@ -11,7 +11,7 @@ SwitchToPlayModeAction::SwitchToPlayModeAction(ApplicationManager* pApp)
 
 void SwitchToPlayModeAction::ReadActionParameters()
 {
-	// No input needed
+
 }
 
 void SwitchToPlayModeAction::Execute()
@@ -24,6 +24,21 @@ void SwitchToPlayModeAction::Execute()
 	UI.InterfaceMode = MODE_PLAY;
 
 	pOut->CreatePlayModeToolBar();
+
+	Command saved[MaxSavedCommands] = { NO_COMMAND };
+
+	Command available[8] = {
+		MOVE_FORWARD_ONE_STEP,
+		MOVE_BACKWARD_ONE_STEP,
+		MOVE_FORWARD_TWO_STEPS,
+		MOVE_BACKWARD_TWO_STEPS,
+		MOVE_FORWARD_THREE_STEPS,
+		MOVE_BACKWARD_THREE_STEPS,
+		ROTATE_CLOCKWISE,
+		ROTATE_COUNTERCLOCKWISE
+	};
+
+	pOut->CreateCommandsBar(saved, 0, available, 8);
 
 	pState->SetCurrentPhase(PHASE_MOVEMENT);
 
