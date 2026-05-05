@@ -287,7 +287,7 @@ void Output::CreateDesignModeToolBar() const
 	MenuItemImages[ITM_DELETE] = "images\\Delete.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Load.jpg";
-	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
+	
 	///TODO: Prepare images for each menu item and add it to the list
 
 
@@ -329,11 +329,9 @@ void Output::CreatePlayModeToolBar() const
 	//MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
 	MenuItemImages[ITM_ROBOT] = "images\\Robot.jpg";
 	MenuItemImages[ITM_EXIT_Play] = "images\\Menu_Exit.jpg";
-	MenuItemImages[ITM_MOVE_FORWARD] = "images\\MoveForwardCard.jpg";
-	MenuItemImages[ITM_MOVE_BAKWARD] = "images\\Backward.jpg";
-	MenuItemImages[ITM_ROTATE_LEFT] = "images\\Right.jpg";
-	MenuItemImages[ITM_ROTATE_RIGHT] = "images\\Left.jpg";
+	
 
+	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
 
 	///TODO: Prepare images for each menu item and add it to the list
 

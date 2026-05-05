@@ -40,7 +40,7 @@ enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more item
 
 	///TODO: Add more items names here
 	ITM_LOAD,
-	ITM_NEW_GAME,
+	
 	DESIGN_ITM_COUNT	// no. of items ==> This should be the last line in this enum
 };
 
@@ -56,10 +56,7 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	///TODO: Add more items names here
 	ITM_ROBOT,
 	ITM_EXIT_Play,
-	ITM_MOVE_FORWARD,
-	ITM_MOVE_BAKWARD,
-	ITM_ROTATE_LEFT,
-	ITM_ROTATE_RIGHT,
+	ITM_NEW_GAME,
 	PLAY_ITM_COUNT		// no. of items ==> This should be the last line in this enum
 };
 

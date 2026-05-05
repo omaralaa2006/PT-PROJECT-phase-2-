@@ -42,7 +42,7 @@ enum ActionType // The actions supported (add more as needed)
 	SAVE_GRID,
 	LOAD_GRID,
 	ADD_ROBOT,
-	NEW_GAME,
+	
 
 	//  [2] Actions of Play Mode
 
@@ -51,10 +51,7 @@ enum ActionType // The actions supported (add more as needed)
 	TO_DESIGN_MODE,	// Go to Design Mode  --> handled by SwitchToDesignModeAction
 	REBOOT_REPAIR,   // mtnsash de yasta
 	EXIT_Play,
-	MOVE_FORWARD,
-	MOVE_BACKWARD,
-	ROTATE_LEFT,
-	ROTATE_RIGHT,
+	NEW_GAME,
 
 	///TODO: Add more action types of Play Mode
 	COMMAND_BAR,

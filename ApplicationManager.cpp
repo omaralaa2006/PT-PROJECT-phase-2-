@@ -128,9 +128,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
     case LOAD_GRID:
 		pAct = new LoadAction(this);
 		break;
-	case NEW_GAME:
-		pAct = new NewGameAction(this);
-		break;
+
 
 	case EXECUTE_COMMANDS:
 		pAct = new ExecuteCommandsAction(this);
@@ -150,7 +148,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	case REBOOT_REPAIR:
 		pAct = new RebootRepairAction(this); // added case yargoola
 		break;
-    
+	case NEW_GAME:
+		pAct = new NewGameAction(this);
+		break;
 	case STATUS:
 		return;
 	}
