@@ -250,8 +250,19 @@ void Player::Move(Grid* pGrid, GameState* pState)
 
 void Player::AppendPlayerInfo(string& playersInfo) const
 {
+	string dir;
+
+	if (currDirection == UP)
+		dir = "Up";
+	else if (currDirection == DOWN)
+		dir = "Down";
+	else if (currDirection == RIGHT)
+		dir = "Right";
+	else if (currDirection == LEFT)
+		dir = "Left";
+
 	playersInfo += "P" + to_string(playerNum + 1) + "(";
-	playersInfo += to_string(currDirection) + ", ";
+	playersInfo += dir + ", ";
 	playersInfo += to_string(health) + ")";
 
 	if (hasExtendedMemory)
