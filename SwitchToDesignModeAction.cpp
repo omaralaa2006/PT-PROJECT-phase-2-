@@ -25,6 +25,7 @@ void SwitchToDesignModeAction::Execute()
 	pOut->CreateDesignModeToolBar();
 
 	pManager->UpdateInterface();
+	pOut->ClearCommandsBar();
 
 	pOut->PrintMessage("Switched to Design Mode");
 }

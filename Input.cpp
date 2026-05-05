@@ -145,7 +145,7 @@ ActionType Input::GetUserAction() const
 			case ITM_SELECT_COMMAND: return SELECT_COMMAND;
 			case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;
 			case ITM_ROBOT: return REBOOT_REPAIR;
-			case ITM_EXIT_Play: return EXIT_Play;
+			case ITM_EXIT_Play: return EXIT;
 			default: return EMPTY;
 			}
 		}
