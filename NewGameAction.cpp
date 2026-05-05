@@ -17,12 +17,12 @@ void NewGameAction::Execute()
 	ReadActionParameters();
 
 	Grid* pGrid = pManager->GetGrid();
-	GameState* pState = pManager->GetGameState();
-
-	delete pState;
-	pState = new GameState(pGrid);
-
+	GameState* pNewState = new GameState(pGrid);
+	pManager->SetGameState(pNewState);
+	pGrid->ClearGrid();
 	pManager->UpdateInterface();
+	pManager->GetOutput()->PrintMessage("New Game Started!!");
+
 }
 
 NewGameAction::~NewGameAction()

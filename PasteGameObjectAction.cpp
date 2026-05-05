@@ -44,8 +44,20 @@ void PasteGameObjectAction::Execute() {
     GameObject* pClipboardObj = pGrid->GetClipboard();
     ActionType type = pClipboardObj->GetType();
     GameObject* pNewObj = NULL;
-
-    if (type == ADD_ROTATINGGEAR) {
+    if(type == SET_FLAG_CELL) {
+        for (int i = 0; i < NumVerticalCells; i++) {
+            for (int j = 0; j < NumHorizontalCells; j++) {
+                GameObject* pObj = pGrid->GetCell(CellPosition(i, j))->GetGameObject();
+                // Check if the object is a Flag
+                if (pObj != NULL && pObj->GetType() == SET_FLAG_CELL) {
+                    pGrid->PrintErrorMessage("Error: Only one flag is allowed on the grid!");
+                    return; // Stop the action immediately
+                }
+            }
+        }
+        pNewObj = new Flag(cellPos);
+	}
+    else if (type == ADD_ROTATINGGEAR) {
         RotatingGear* pOldGear = dynamic_cast<RotatingGear*>(pClipboardObj);
         bool dir = pOldGear->GetisClockWise();
         pNewObj = new RotatingGear(cellPos, dir);

@@ -37,8 +37,6 @@ void AddFlagAction::ReadActionParameters()
 void AddFlagAction::Execute()
 {
 	Grid* pGrid = pManager->GetGrid();
-
-	// --- NEW CHECK START ---
 	for (int i = 0; i < NumVerticalCells; i++) {
 		for (int j = 0; j < NumHorizontalCells; j++) {
 			GameObject* pObj = pGrid->GetCell(CellPosition(i, j))->GetGameObject();

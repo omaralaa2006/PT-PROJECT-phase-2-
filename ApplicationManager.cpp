@@ -46,6 +46,16 @@ GameState* ApplicationManager::GetGameState() const
 	return pGameState;
 }
 
+void ApplicationManager::SetGameState(GameState* pGameState)
+{
+	if( pGameState != NULL)
+	{
+		delete this->pGameState;
+		
+	}
+	this->pGameState = pGameState;
+}
+
 void ApplicationManager::UpdateInterface() const
 {
 	pGrid->UpdateInterface(pGameState);

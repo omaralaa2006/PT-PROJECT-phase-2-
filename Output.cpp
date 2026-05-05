@@ -361,8 +361,8 @@ void Output::CreateCommandsBar(Command savedCommands[], int savedCommandsCount, 
 	CommandItemImages[MOVE_BACKWARD_ONE_STEP] = "images\\Backward.jpg";
 	CommandItemImages[MOVE_BACKWARD_TWO_STEPS] = "images\\Backward2steps.jpg";
 	CommandItemImages[MOVE_BACKWARD_THREE_STEPS] = "images\\Backward3steps.jpg";
-	CommandItemImages[ROTATE_CLOCKWISE] = "images\\Right.jpg";
-	CommandItemImages[ROTATE_COUNTERCLOCKWISE] = "images\\Left.jpg";
+	CommandItemImages[ROTATE_CLOCKWISE] = "images\\Left.jpg";
+	CommandItemImages[ROTATE_COUNTERCLOCKWISE] = "images\\Right.jpg";
 
 	// TODO: Prepare images for more items with .jpg extensions and add them to the list 
 

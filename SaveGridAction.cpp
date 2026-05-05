@@ -14,12 +14,15 @@ void SaveGridAction::Execute() {
 
         // FOLLOW THE INSTRUCTION ORDER EXACTLY
         pGrid->SaveAll(OutFile, SET_FLAG_CELL);
-        pGrid->SaveAll(OutFile, ADD_WATER_PIT);
-        pGrid->SaveAll(OutFile, ADD_DANGER_ZONE);
+       
+       
         pGrid->SaveAll(OutFile, ADD_BELT);
-        pGrid->SaveAll(OutFile, ADD_WORKSHOP);
+        
         pGrid->SaveAll(OutFile, ADD_ANTENNA);
+        pGrid->SaveAll(OutFile, ADD_DANGER_ZONE);
         pGrid->SaveAll(OutFile, ADD_ROTATINGGEAR);
+        pGrid->SaveAll(OutFile, ADD_WATER_PIT);
+        pGrid->SaveAll(OutFile, ADD_WORKSHOP);
 
         OutFile.close();
         pGrid->PrintErrorMessage("Grid saved successfully! Click to continue...");
