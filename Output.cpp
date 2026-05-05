@@ -674,8 +674,8 @@ void Output::DrawFlag(const CellPosition& cellPos) const
 	// TODO: 1. Draw the flag pole (the line)
 	int flagPoleStartX = cellStartX + UI.CellWidth / 2;
 	int flagPoleStartY = cellStartY + UI.CellHeight / 4;
-	int poleBottomY = cellStartY + UI.CellHeight * 3 / 4;
-	pWind->SetPen(RED, 3);
+	int poleBottomY = cellStartY + UI.CellHeight * .9;
+	pWind->SetPen(BLACK, 10);
 	pWind->DrawLine(flagPoleStartX, flagPoleStartY, flagPoleStartX, poleBottomY);
 
 
