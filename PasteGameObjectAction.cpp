@@ -45,10 +45,7 @@ void PasteGameObjectAction::Execute() {
     ActionType type = pClipboardObj->GetType();
     GameObject* pNewObj = NULL;
 
-    if (type == SET_FLAG_CELL) {
-        pNewObj = new Flag(cellPos);
-    }
-    else if (type == ADD_ROTATINGGEAR) {
+    if (type == ADD_ROTATINGGEAR) {
         RotatingGear* pOldGear = dynamic_cast<RotatingGear*>(pClipboardObj);
         bool dir = pOldGear->GetisClockWise();
         pNewObj = new RotatingGear(cellPos, dir);
@@ -56,8 +53,19 @@ void PasteGameObjectAction::Execute() {
     else if (type == ADD_BELT)
     {
         Belt* pOldBelt = dynamic_cast<Belt*>(pClipboardObj);
-        CellPosition endPos = pOldBelt->GetEndPosition();
-        pNewObj = new Belt(cellPos, endPos);
+
+        // 1. Get the original start and end
+        CellPosition oldStart = pOldBelt->GetPosition();
+        CellPosition oldEnd = pOldBelt->GetEndPosition();
+
+        // 2. Calculate the "Length" (distance)
+        int diffV = oldEnd.VCell() - oldStart.VCell();
+        int diffH = oldEnd.HCell() - oldStart.HCell();
+
+        // 3. Create the NEW end based on the NEW click + the distance
+        CellPosition newEnd(cellPos.VCell() + diffV, cellPos.HCell() + diffH);
+
+        pNewObj = new Belt(cellPos, newEnd);
     }
     else if (type == ADD_ANTENNA) {
         pNewObj = new Antenna(cellPos);

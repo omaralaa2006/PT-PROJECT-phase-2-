@@ -22,6 +22,7 @@ void SaveGridAction::Execute() {
         pGrid->SaveAll(OutFile, ADD_ROTATINGGEAR);
 
         OutFile.close();
+        pGrid->PrintErrorMessage("Grid saved successfully! Click to continue...");
     }
 }
 

@@ -16,6 +16,7 @@ public:
 	virtual void Save(ofstream& OutFile, ActionType type);	
 	virtual void Load(ifstream& Infile);
 	virtual ActionType GetType() const;
+	GameObject* GetCopy(CellPosition pos) const;
 	virtual ~Belt();
 };
 

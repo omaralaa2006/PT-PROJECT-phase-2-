@@ -54,16 +54,40 @@ GameObject* Belt::Clone() const
 
 void Belt::Save(ofstream& OutFile, ActionType type) {
 	if (type == ADD_BELT) {
-		OutFile << position.GetCellNum()<<" " << endCellPos.GetCellNum() << endl;
+		// Calculate length (difference in cells)
+		int lengthV = endCellPos.VCell() - position.VCell();
+		int lengthH = endCellPos.HCell() - position.HCell();
+
+		// Save: StartCellNum, LengthV, LengthH
+		OutFile << position.GetCellNum() << " " << lengthV << " " << lengthH << endl;
 	}
 }
+void Belt::Load(ifstream& InFile) {
+	int startCellNum, lengthV, lengthH;
+	InFile >> startCellNum >> lengthV >> lengthH;
 
-void Belt::Load(ifstream& Infile)
-{
-	int start,end;
-	Infile >> start >> end;;
-	this->position = CellPosition(start);
-	this->endCellPos = CellPosition(end);
+	this->position = CellPosition(startCellNum);
+
+	// Reconstruct endCellPos based on saved lengths
+	this->endCellPos = CellPosition(position.VCell() + lengthV, position.HCell() + lengthH);
+}
+//void Belt::Load(ifstream& Infile)
+//{
+	//int start,end;
+	//Infile >> start >> end;;
+	//this->position = CellPosition(start);
+	//this->endCellPos = CellPosition(end);
+//}
+GameObject* Belt::GetCopy(CellPosition pos) const {
+	// 1. Calculate current length/displacement
+	int dV = this->endCellPos.VCell() - this->position.VCell();
+	int dH = this->endCellPos.HCell() - this->position.HCell();
+
+	// 2. Create new end position relative to the NEW 'pos'
+	CellPosition newEnd(pos.VCell() + dV, pos.HCell() + dH);
+
+	// 3. Return the new Belt
+	return new Belt(pos, newEnd);
 }
 ActionType Belt::GetType() const
 {

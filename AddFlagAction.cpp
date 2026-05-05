@@ -34,44 +34,36 @@ void AddFlagAction::ReadActionParameters()
 	// 5- Clear status bar
 	pOut->ClearStatusBar();
 }
-
 void AddFlagAction::Execute()
 {
-	// The first line of any Action Execution is to read its parameter first 
-	// and hence initializes its data members
-	ReadActionParameters();
-	if (flagPos.IsValidCell())
-	{
-		Flag* pFlag = new Flag(flagPos);
-		Grid* pGrid = pManager->GetGrid();
-		bool added = pGrid->AddObjectToCell(pFlag);
-		if (!added) {
-			if (!flagPos.IsValidCell() || flagPos.GetCellNum() == 1 || flagPos.GetCellNum() == 55)
-			{
-				Output* pOut = pManager->GetOutput();
-				pOut->PrintMessage("Error! Invalid cell . cannot place flag here");
-				
-			}
-			else {
-				pManager->GetOutput()->PrintMessage("Error! Cell aleardy occupied!");
-			}
-			delete pFlag;
-		}
-		else {
-			pManager->GetOutput()->PrintMessage("Flag added successfully. ");
-		}
+	Grid* pGrid = pManager->GetGrid();
 
+	// --- NEW CHECK START ---
+	for (int i = 0; i < NumVerticalCells; i++) {
+		for (int j = 0; j < NumHorizontalCells; j++) {
+			GameObject* pObj = pGrid->GetCell(CellPosition(i, j))->GetGameObject();
+
+			// Check if the object is a Flag
+			if (pObj != NULL && pObj->GetType() == SET_FLAG_CELL) {
+				pGrid->PrintErrorMessage("Error: Only one flag is allowed on the grid!");
+				return; // Stop the action immediately
+			}
+		}
 	}
+	// --- NEW CHECK END ---
 
-	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
-	// == Here are some guideline steps (numbered below) to implement this function ==
+	// If we reached here, no flag was found. Proceed with normal adding:
+	ReadActionParameters();
+	Flag* pFlag = new Flag(flagPos);
+	bool added = pGrid->AddObjectToCell(pFlag);
 
-	// 1-Create a flag object
-	// 2-get a pointer to the Grid from the ApplicationManager
-	// 3-Add the flag object to the GameObject of its Cell:
-	// 4-Check if the flag was added and print an errror message if flag couldn't be added
-	
+	if (!added) {
+		pGrid->PrintErrorMessage("Error: Cell is already occupied!");
+		delete pFlag;
+	}
 }
+
+
 
 
 AddFlagAction::~AddFlagAction()

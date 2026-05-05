@@ -163,8 +163,8 @@ void Grid::SaveAll(ofstream& OutFile, ActionType type) {
 	for (int i = 0; i < NumVerticalCells; i++) {
 		for (int j = 0; j < NumHorizontalCells; j++) {
 			GameObject* pObj = CellList[i][j]->GetGameObject();
-			// You might need a GetType function or just check if it's not NULL
-			if (pObj != NULL && pObj->GetType() == type) count++;
+			if (pObj != NULL && pObj->GetType() == type) 
+				count++;
 		}
 	}
 
