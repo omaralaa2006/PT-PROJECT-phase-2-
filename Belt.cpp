@@ -51,9 +51,11 @@ GameObject* Belt::Clone() const
 {
 	return new Belt(*this);
 }
-void Belt::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << " " << endCellPos.GetCellNum() <<endl;
+
+void Belt::Save(ofstream& OutFile, ActionType type) {
+	if (type == ADD_BELT) {
+		OutFile << position.GetCellNum()<<" " << endCellPos.GetCellNum() << endl;
+	}
 }
 
 void Belt::Load(ifstream& Infile)

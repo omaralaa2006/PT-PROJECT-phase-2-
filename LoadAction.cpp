@@ -17,7 +17,7 @@ void LoadAction::ReadActionParameters()
 }
 void LoadAction::Execute() {
     ReadActionParameters();
-    ifstream InFile("AutoSave.txt");
+    ifstream InFile("GridData.txt");
 
     if (InFile.is_open()) {
         Grid* pGrid = pManager->GetGrid();

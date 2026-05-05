@@ -55,10 +55,10 @@ GameObject* RotatingGear::Clone() const
 {
 	return new RotatingGear(*this);
 }
-void RotatingGear::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << " ";
-	OutFile << (isClockWise ? 1 : 0) << endl;
+void RotatingGear::Save(ofstream& OutFile, ActionType type) {
+	if (type == ADD_ROTATINGGEAR) { // Only save if the grid is asking for Gears
+		OutFile << position.GetCellNum() << " " << (isClockWise ? 1 : 0) << endl;
+	}
 }
 
 void RotatingGear::Load(ifstream& Infile)

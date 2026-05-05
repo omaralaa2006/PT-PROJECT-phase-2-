@@ -167,8 +167,41 @@ void Output::DrawTriangle(int triangleCenterX, int triangleCenterY, int triangle
 		x3 = triangleCenterX;
 		y3 = triangleCenterY - triangleHeight / 2;
 	}
+	else if (direction == DOWN)
+	{
+		x1 = triangleCenterX - triangleWidth / 2;
+		y1 = triangleCenterY - triangleHeight / 2;
+		x2 = triangleCenterX + triangleWidth / 2;
+		y2 = triangleCenterY - triangleHeight / 2;
+		x3 = triangleCenterX;
+		y3 = triangleCenterY + triangleHeight / 2;
+	}
+	else if (direction == RIGHT)
+	{
+		x1 = triangleCenterX - triangleWidth / 2;
+		y1 = triangleCenterY - triangleHeight / 2;
+		x2 = triangleCenterX - triangleWidth / 2;
+		y2 = triangleCenterY + triangleHeight / 2;
+		x3 = triangleCenterX + triangleWidth / 2;
+		y3 = triangleCenterY;
+	}
+	else
+	{
+		x1 = triangleCenterX + triangleWidth / 2;
+		y1 = triangleCenterY - triangleHeight / 2;
+		x2 = triangleCenterX + triangleWidth / 2;
+		y2 = triangleCenterY + triangleHeight / 2;
+		x3 = triangleCenterX - triangleWidth / 2;
+		y3 = triangleCenterY;
+	}
 	///TODO: Continue the implementation
 
+	int xPoints[3] = { x1, x2, x3 };
+	int yPoints[3] = { y1, y2, y3 };
+
+	pWind->SetPen(triangleColor, penWidth);
+	pWind->SetBrush(triangleColor);
+	pWind->DrawPolygon(xPoints, yPoints, 3, style);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -239,22 +272,22 @@ void Output::CreateDesignModeToolBar() const
 	// reoder them in UI_Info.h ==> enum DESIGN_MODE_ITEMS
 	// ** MAKE SURE THAT THE IMAGES ARE .JPG FILES **
 	string MenuItemImages[DESIGN_ITM_COUNT];
-	MenuItemImages[ITM_SET_FLAG_CELL] = "images\\Flag.jpg";        
-	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";            
-	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg"; 
-	MenuItemImages[ITM_ADD_ANTENNA] = "images\\Antenna.jpg";       
-	MenuItemImages[ITM_ADD_BELT] = "images\\Belt.jpg";             
-	MenuItemImages[ITM_ADD_WATER_PITS] = "images\\WaterPits.jpg";  
-	MenuItemImages[ITM_ADD_DANGER_ZONE] = "images\\DangerZone.jpg"; 
-	MenuItemImages[ITM_ADD_WORK_SHOP] = "images\\Workshop.jpg";    
-	MenuItemImages[ITM_ROTATING_GEAR] = "images\\Rotating.jpg";    
-	MenuItemImages[ITM_COPY] = "images\\Copy.jpg";                 
-	MenuItemImages[ITM_CUT] = "images\\Cut.jpg";                   
-	MenuItemImages[ITM_PASTE] = "images\\Paste.jpg";               
-	MenuItemImages[ITM_DELETE] = "images\\Delete.jpg";             
-	MenuItemImages[ITM_SAVE] = "images\\Save.jpg";            
-	MenuItemImages[ITM_LOAD] = "images\\Load.jpg";                 
-	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";              
+	MenuItemImages[ITM_SET_FLAG_CELL] = "images\\Flag.jpg";
+	MenuItemImages[ITM_EXIT] = "images\\Menu_Exit.jpg";
+	MenuItemImages[ITM_SWITCH_TO_PLAY_MODE] = "images\\Menu_SwitchToGame.jpg";
+	MenuItemImages[ITM_ADD_ANTENNA] = "images\\Antenna.jpg";
+	MenuItemImages[ITM_ADD_BELT] = "images\\Belt.jpg";
+	MenuItemImages[ITM_ADD_WATER_PITS] = "images\\WaterPits.jpg";
+	MenuItemImages[ITM_ADD_DANGER_ZONE] = "images\\DangerZone.jpg";
+	MenuItemImages[ITM_ADD_WORK_SHOP] = "images\\Workshop.jpg";
+	MenuItemImages[ITM_ROTATING_GEAR] = "images\\Rotating.jpg";
+	MenuItemImages[ITM_COPY] = "images\\Copy.jpg";
+	MenuItemImages[ITM_CUT] = "images\\Cut.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\Paste.jpg";
+	MenuItemImages[ITM_DELETE] = "images\\Delete.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Load.jpg";
+	MenuItemImages[ITM_NEW_GAME] = "images\\New.jpg";
 	///TODO: Prepare images for each menu item and add it to the list
 
 
@@ -425,6 +458,8 @@ void Output::PrintPlayersInfo(string info)
 	// One of the correct ways to implement the above TODO is to call CreatePlayModeToolBar(); 
 	// to clear what was written in the player info (there are other ways too � You are free to use any)
 
+	CreatePlayModeToolBar();
+
 	// Set the pen and font before drawing the string on the window
 	pWind->SetPen(UI.PlayerInfoColor);
 	pWind->SetFont(20, BOLD, BY_NAME, "Verdana");
@@ -434,7 +469,7 @@ void Output::PrintPlayersInfo(string info)
 	///TODO: Calculate the Width and Height of the string if drawn using the current font 
 	//       (Use GetStringSize() window function) and set the "w" and "h" variables with its width and height
 
-
+	pWind->GetStringSize(w, h, info);
 
 	// Set the start X & Y coordinate of drawing the string
 	int x = UI.width - w - 20; // space 20 before the right-side of the window
@@ -443,8 +478,7 @@ void Output::PrintPlayersInfo(string info)
 
 	///TODO: Draw the string "info" in the specified location (x, y)
 
-
-
+	pWind->DrawString(x, y, info);
 }
 
 //======================================================================================//

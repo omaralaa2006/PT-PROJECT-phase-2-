@@ -33,9 +33,8 @@ enum ActionType // The actions supported (add more as needed)
 	ADD_WORKSHOP,
 	ADD_ROTATINGGEAR,
 
-
 	///TODO: Add more action types of Design Mode
-	     
+
 	COPY_OBJECT,
 	CUT_OBJECT,
 	PASTE_OBJECT,
@@ -59,6 +58,7 @@ enum ActionType // The actions supported (add more as needed)
 
 	///TODO: Add more action types of Play Mode
 	COMMAND_BAR,
+
 	//  [3] Others
 
 	EMPTY,							// Empty Area in ToolBar (NOT inside any action icon)
@@ -71,8 +71,7 @@ enum ActionType // The actions supported (add more as needed)
 enum PhaseType
 {
 	PHASE_MOVEMENT,  // players execute their saved commands
-
-	///TODO: Add more phases here as needed
+	PHASE_SHOOTING   // shooting phase after movement
 };
 
 enum Direction // Directions of the game
@@ -85,6 +84,7 @@ enum Direction // Directions of the game
 
 ///TODO: Set the maximum number of commands a player can save per round
 const int MaxSavedCommands = 5;
+const int MaxSavedCommandsWithExtendedMemory = 6;
 
 enum Command
 {
@@ -100,6 +100,5 @@ enum Command
 
 	COMMANDS_COUNT,
 };
-
 
 #endif

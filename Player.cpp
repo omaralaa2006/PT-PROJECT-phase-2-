@@ -8,7 +8,14 @@ Player::Player(Cell* pCell, int playerNum)
 {
 	this->pCell = pCell;
 
-	for (int i = 0; i < MaxSavedCommands; i++)
+	laserDamage = 1;
+	isHacked = false;
+
+	hasExtendedMemory = false;
+	hasToolkit = false;
+	hasHackDevice = false;
+
+	for (int i = 0; i < MaxSavedCommandsWithExtendedMemory; i++)
 		savedCommands[i] = NO_COMMAND;
 }
 
@@ -47,9 +54,74 @@ void Player::SetDirection(Direction d)
 	currDirection = d;
 }
 
+int Player::GetPlayerNum() const
+{
+	return playerNum;
+}
+
+int Player::GetLaserDamage() const
+{
+	return laserDamage;
+}
+
+void Player::SetLaserDamage(int damage)
+{
+	laserDamage = damage;
+}
+
+bool Player::HasExtendedMemory() const
+{
+	return hasExtendedMemory;
+}
+
+void Player::SetExtendedMemory(bool value)
+{
+	hasExtendedMemory = value;
+}
+
+bool Player::HasToolkit() const
+{
+	return hasToolkit;
+}
+
+void Player::SetToolkit(bool value)
+{
+	hasToolkit = value;
+}
+
+bool Player::HasHackDevice() const
+{
+	return hasHackDevice;
+}
+
+void Player::SetHackDevice(bool value)
+{
+	hasHackDevice = value;
+}
+
+bool Player::IsHacked() const
+{
+	return isHacked;
+}
+
+void Player::SetHacked(bool value)
+{
+	isHacked = value;
+}
+
+int Player::GetMaxSavedCommands() const
+{
+	int maxCommands = hasExtendedMemory ? MaxSavedCommandsWithExtendedMemory : MaxSavedCommands;
+
+	if (health < maxCommands)
+		return health;
+
+	return maxCommands;
+}
+
 void Player::AddSavedCommand(Command cmd)
 {
-	int maxAllowed = (health < 5) ? health : 5;
+	int maxAllowed = GetMaxSavedCommands();
 
 	if (savedCommandCount < maxAllowed)
 		savedCommands[savedCommandCount++] = cmd;
@@ -57,7 +129,7 @@ void Player::AddSavedCommand(Command cmd)
 
 void Player::ClearSavedCommands()
 {
-	for (int i = 0; i < MaxSavedCommands; i++)
+	for (int i = 0; i < MaxSavedCommandsWithExtendedMemory; i++)
 		savedCommands[i] = NO_COMMAND;
 
 	savedCommandCount = 0;
@@ -98,31 +170,19 @@ void Player::Move(Grid* pGrid, GameState* pState)
 	if (!pGrid || !pState || !pCell)
 		return;
 
+	bool reachedWorkshop = false;
+
 	for (int i = 0; i < savedCommandCount; i++)
 	{
 		Command cmd = savedCommands[i];
 
 		if (cmd == ROTATE_CLOCKWISE)
 		{
-			if (currDirection == UP)
-				currDirection = RIGHT;
-			else if (currDirection == RIGHT)
-				currDirection = DOWN;
-			else if (currDirection == DOWN)
-				currDirection = LEFT;
-			else if (currDirection == LEFT)
-				currDirection = UP;
+			Rotate(true);
 		}
 		else if (cmd == ROTATE_COUNTERCLOCKWISE)
 		{
-			if (currDirection == UP)
-				currDirection = LEFT;
-			else if (currDirection == LEFT)
-				currDirection = DOWN;
-			else if (currDirection == DOWN)
-				currDirection = RIGHT;
-			else if (currDirection == RIGHT)
-				currDirection = UP;
+			Rotate(false);
 		}
 		else
 		{
@@ -169,6 +229,19 @@ void Player::Move(Grid* pGrid, GameState* pState)
 		GameObject* pObj = pCell->GetGameObject();
 
 		if (pObj != NULL)
+		{
+			if (pCell->HasWorkShop() != NULL)
+				reachedWorkshop = true;
+			else
+				pObj->Apply(pGrid, pState, this);
+		}
+	}
+
+	if (reachedWorkshop && pCell->HasWorkShop() != NULL)
+	{
+		GameObject* pObj = pCell->GetGameObject();
+
+		if (pObj != NULL)
 			pObj->Apply(pGrid, pState, this);
 	}
 
@@ -180,6 +253,11 @@ void Player::AppendPlayerInfo(string& playersInfo) const
 	playersInfo += "P" + to_string(playerNum + 1) + "(";
 	playersInfo += to_string(currDirection) + ", ";
 	playersInfo += to_string(health) + ")";
+
+	if (hasExtendedMemory)
+		playersInfo += "[M]";
+	if (laserDamage == 2)
+		playersInfo += "[DL]";
 }
 
 void Player::Rotate(bool clockwise)
@@ -191,7 +269,7 @@ void Player::Rotate(bool clockwise)
 		else if (currDirection == DOWN) currDirection = LEFT;
 		else if (currDirection == LEFT) currDirection = UP;
 	}
-	else 
+	else
 	{
 		if (currDirection == UP) currDirection = LEFT;
 		else if (currDirection == LEFT) currDirection = DOWN;

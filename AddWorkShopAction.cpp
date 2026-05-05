@@ -18,6 +18,7 @@ void AddWorkShopAction::ReadActionParameters() {
         pOut->PrintMessage("Error: Invalid cell position.");
         workshopPos = CellPosition(-1, -1);
     }
+    
     pOut->ClearStatusBar();
 }
 
@@ -31,7 +32,14 @@ void AddWorkShopAction::Execute()
         bool added = pGrid->AddObjectToCell(pWorkshop);
         if (!added) 
         {
-            pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            if (!workshopPos.IsValidCell() || workshopPos.GetCellNum() == 1 || workshopPos.GetCellNum() == 55)
+            {
+                Output* pOut = pManager->GetOutput();
+                pOut->PrintMessage("Error: Invalid cell position.");
+            }
+            else {
+                pManager->GetOutput()->PrintMessage("Error: Cell already occupied!");
+            }
             delete pWorkshop;
         }
         else{

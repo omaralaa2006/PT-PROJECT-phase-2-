@@ -30,7 +30,14 @@ void AddAntennaAction::Execute()
 		bool added = pGrid->AddObjectToCell(pAntenna);
 		if (!added)
 		{
-			pManager->GetOutput()->PrintMessage("Error! Cell already occupied.");
+			if(!antennaPos.IsValidCell() || antennaPos.GetCellNum() == 1 || antennaPos.GetCellNum() == 55)
+			{
+				Output* pOut = pManager->GetOutput();
+				pOut->PrintMessage("Error! invalid cell position");
+			}
+			else {
+				pManager->GetOutput()->PrintMessage("Error! Cell already occupied.");
+			}
 			delete pAntenna;
 		}
 		else

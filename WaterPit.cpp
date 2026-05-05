@@ -50,9 +50,11 @@ GameObject* WaterPit::Clone() const
 {
 	return new WaterPit(*this);
 }
-void WaterPit::Save(ofstream& OutFile)
-{
-	OutFile << position.GetCellNum() << endl;
+
+void WaterPit::Save(ofstream& OutFile, ActionType type) {
+	if (type == ADD_WATER_PIT) {
+		OutFile << position.GetCellNum() << endl;
+	}
 }
 
 void WaterPit::Load(ifstream& Infile)

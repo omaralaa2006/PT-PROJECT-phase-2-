@@ -46,7 +46,15 @@ void AddFlagAction::Execute()
 		Grid* pGrid = pManager->GetGrid();
 		bool added = pGrid->AddObjectToCell(pFlag);
 		if (!added) {
-			pManager->GetOutput()->PrintMessage("Error! Cell aleardy occupied!");
+			if (!flagPos.IsValidCell() || flagPos.GetCellNum() == 1 || flagPos.GetCellNum() == 55)
+			{
+				Output* pOut = pManager->GetOutput();
+				pOut->PrintMessage("Error! Invalid cell . cannot place flag here");
+				
+			}
+			else {
+				pManager->GetOutput()->PrintMessage("Error! Cell aleardy occupied!");
+			}
 			delete pFlag;
 		}
 		else {
